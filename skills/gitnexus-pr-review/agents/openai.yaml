@@ -1,4 +1,0 @@
-interface:
-  display_name: "GitNexus PR Review"
-  short_description: "Review diffs with graph context"
-  default_prompt: "Use $gitnexus-pr-review to review a PR, branch, commit, or working-tree diff with GitNexus context."

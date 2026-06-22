@@ -1,4 +1,0 @@
-interface:
-  display_name: "GitNexus Refactoring"
-  short_description: "Plan graph-aware refactors"
-  default_prompt: "Use $gitnexus-refactoring to plan safe rename, extract, move, and dependency cleanup work with GitNexus."

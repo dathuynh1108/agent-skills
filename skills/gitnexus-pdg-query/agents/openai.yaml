@@ -1,4 +1,0 @@
-interface:
-  display_name: "GitNexus PDG Query"
-  short_description: "Query control and data flow"
-  default_prompt: "Use $gitnexus-pdg-query to reason about GitNexus PDG controls, data-flow, and guard queries."

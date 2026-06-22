@@ -24,15 +24,6 @@ Backup repo for personal Codex bootstrap files and custom skills.
 - `skills/deep-learning-production`: production DL training/evaluation/inference, GPU performance, checkpointing, and deployment.
 - `skills/mlops-data-pipeline-quality`: data/feature pipelines, data quality, train/serve skew, labels, backfills, lineage, and monitoring.
 - `skills/security-privacy-review`: defensive security/privacy review for backend, API, data, ML, logging, auth, secrets, and dependencies.
-- `skills/gitnexus-guide`: official GitNexus workflow and tool selection reference.
-- `skills/gitnexus-cli`: official GitNexus index/status/clean/wiki/list command workflow.
-- `skills/gitnexus-exploring`: official GitNexus architecture, ownership, caller/callee, and execution-flow exploration workflow.
-- `skills/gitnexus-impact-analysis`: official GitNexus blast-radius and diff-impact workflow.
-- `skills/gitnexus-debugging`: official GitNexus bug and regression tracing workflow.
-- `skills/gitnexus-refactoring`: official GitNexus graph-aware refactoring workflow.
-- `skills/gitnexus-pr-review`: official GitNexus PR/branch/diff review workflow.
-- `skills/gitnexus-pdg-query`: official GitNexus PDG control/data-dependence query workflow.
-- `skills/gitnexus-taint-analysis`: official GitNexus CFG/taint/PDG analysis workflow.
 - `scripts/install-skills.ps1`: install repo skills into Windows `%USERPROFILE%\.codex\skills` or `TARGET_SKILLS_DIR`.
 - `scripts/install-skills.sh`: install repo skills into macOS/Linux `~/.codex/skills` or `TARGET_SKILLS_DIR`.
 - `scripts/validate-skills.ps1`: validate skill structure on Windows and run Codex `quick_validate.py` when available.
@@ -62,19 +53,6 @@ cp AGENTS.md ~/.codex/AGENTS.md
 cp hooks/hooks.json ~/.codex/hooks.json
 ```
 
-## GitNexus CLI And MCP
-
-GitNexus skills in this repo are only the agent workflows. Install the actual
-CLI and Codex MCP integration separately on each machine:
-
-```powershell
-npm install -g gitnexus@latest
-gitnexus setup -c codex
-gitnexus --version
-```
-
-Run `gitnexus analyze` from each repository root that should be indexed.
-
 ## Sync From Local Codex
 
 Run from this repo when local custom skills change:
@@ -100,15 +78,6 @@ rsync -a --delete ~/.codex/skills/ml-system-design/ ./skills/ml-system-design/
 rsync -a --delete ~/.codex/skills/deep-learning-production/ ./skills/deep-learning-production/
 rsync -a --delete ~/.codex/skills/mlops-data-pipeline-quality/ ./skills/mlops-data-pipeline-quality/
 rsync -a --delete ~/.codex/skills/security-privacy-review/ ./skills/security-privacy-review/
-rsync -a --delete ~/.codex/skills/gitnexus-guide/ ./skills/gitnexus-guide/
-rsync -a --delete ~/.codex/skills/gitnexus-cli/ ./skills/gitnexus-cli/
-rsync -a --delete ~/.codex/skills/gitnexus-exploring/ ./skills/gitnexus-exploring/
-rsync -a --delete ~/.codex/skills/gitnexus-impact-analysis/ ./skills/gitnexus-impact-analysis/
-rsync -a --delete ~/.codex/skills/gitnexus-debugging/ ./skills/gitnexus-debugging/
-rsync -a --delete ~/.codex/skills/gitnexus-refactoring/ ./skills/gitnexus-refactoring/
-rsync -a --delete ~/.codex/skills/gitnexus-pr-review/ ./skills/gitnexus-pr-review/
-rsync -a --delete ~/.codex/skills/gitnexus-pdg-query/ ./skills/gitnexus-pdg-query/
-rsync -a --delete ~/.codex/skills/gitnexus-taint-analysis/ ./skills/gitnexus-taint-analysis/
 cp ~/.codex/hooks.json ./hooks/hooks.json
 ```
 

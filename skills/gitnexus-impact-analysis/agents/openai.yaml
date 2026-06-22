@@ -1,4 +1,0 @@
-interface:
-  display_name: "GitNexus Impact Analysis"
-  short_description: "Analyze code blast radius"
-  default_prompt: "Use $gitnexus-impact-analysis to assess symbol, API, module, and diff impact with GitNexus."
