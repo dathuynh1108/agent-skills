@@ -15,26 +15,59 @@ description: Use when Codex needs to create, validate, propose, or perform git c
 - Review staged content with `git diff --cached --stat` and, when risk warrants, `git diff --cached`.
 - Run relevant format/lint/typecheck/test commands before committing when feasible.
 - If checks are skipped or fail, state the exact command, reason/result, and remaining risk.
+- Draft and validate the Conventional Commit message with the XML structure below before executing `git commit`.
 - Commit only after the staged diff matches the intended scope.
+- After a successful commit in a GitNexus-indexed repo, use `$gitnexus-cli` to reindex before final reporting. If reindexing is unavailable or fails, report the exact command/result and remaining freshness risk.
 
-## Message Format
+## Commit Message Structure
 
-- Use Conventional Commits: `<type>(<scope>): <description>`.
-- Keep the header English, imperative, lowercase description, no trailing period, under 72 characters.
+Use this XML as an internal checklist or user-facing proposal when helpful:
+
+```xml
+<commit-message>
+  <type>feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert</type>
+  <scope optional="true">module-or-area</scope>
+  <breaking optional="true">true|false</breaking>
+  <description>imperative short summary</description>
+  <body optional="true">why, approach, trade-offs, validation, rollout risk</body>
+  <footer optional="true">BREAKING CHANGE: details | Refs: #123 | Co-authored-by: Name &lt;email&gt;</footer>
+</commit-message>
+```
+
+Render the final commit message as:
+
+```text
+<type>[optional scope][optional !]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+Rules:
+
+- Keep the header English, imperative, lower-case where natural, no trailing period, and under 72 characters.
+- Omit scope when it is not useful; do not emit empty parentheses.
+- Use one scope noun that describes the touched module, package, feature, or workflow.
+- Put a blank line between header, body, and footer when body or footer exists.
 - Use a body for non-obvious why, approach, trade-offs, rollout risk, or validation notes.
-- Mark breaking changes with `!` and a `BREAKING CHANGE:` footer.
+- Mark breaking changes with `!` before the colon, a `BREAKING CHANGE:` footer, or both when extra detail is useful.
+- Treat footer tokens like git trailers: `Refs: #123`, `Reviewed-by: Name`, `Co-authored-by: Name <email>`.
+- Use repeated `-m` arguments for multi-paragraph commits, or a temporary commit message file when the body/footer would be easier to review.
 
 ## Type Selection
 
 - `feat`: new behavior.
 - `fix`: broken behavior.
+- `docs`: documentation-only changes.
+- `style`: formatting-only or non-behavioral style change.
 - `refactor`: behavior-preserving code restructuring.
 - `perf`: performance improvement.
 - `test`: tests are the primary change.
-- `docs`: docs are the primary change.
-- `style`: formatting-only or non-behavioral style change.
-- `chore`: maintenance/tooling that is not app behavior.
+- `build`: build system, packaging, dependency, or generated lockfile changes.
 - `ci`: CI or workflow automation.
+- `chore`: maintenance/tooling that is not app behavior.
+- `revert`: revert a previous commit; include the reverted commit subject or SHA in the body/footer when useful.
 
 ## Scope And Splitting
 
@@ -50,5 +83,6 @@ After a commit, report:
 - Commit hash and subject.
 - Files or modules committed.
 - Checks run with pass/fail result.
+- GitNexus reindex result for GitNexus-indexed repos.
 - Skipped checks and remaining risk.
 - Unrelated dirty files left untouched.

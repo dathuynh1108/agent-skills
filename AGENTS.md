@@ -24,6 +24,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$gitnexus-impact-analysis` before non-trivial symbol/API edits, before claiming blast radius, and before commit/PR scope checks.
 - Use `$gitnexus-debugging`, `$gitnexus-refactoring`, `$gitnexus-pr-review`, and `$gitnexus-cli` for bug tracing, safe rename/extract/move work, PR review, and index/status/wiki/clean operations.
 - Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
+- After a successful commit in a GitNexus-indexed repo, use `$gitnexus-cli` to reindex before final handoff. If reindexing is unavailable or fails, report the exact command/result and remaining freshness risk.
 
 ## 2. Execution Discipline
 
