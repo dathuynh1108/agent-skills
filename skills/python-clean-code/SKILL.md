@@ -8,7 +8,7 @@ description: Use when working in Python services to make scoped code changes, cl
 ## Workflow
 
 1. Read local guidance first: `AGENTS.md`, `README.md`, `pyproject.toml`, `requirements*.txt`, `Makefile`, CI files, and nearby tests.
-2. If `.gitnexus/run.cjs` exists, run `node .gitnexus/run.cjs status`. When the index is stale and graph impact matters, run `node .gitnexus/run.cjs analyze` before relying on impact/flow answers.
+2. For GitNexus-indexed repos, use the task-specific GitNexus skills before broad manual exploration: `$gitnexus-exploring` for flow/owner lookup, `$gitnexus-impact-analysis` before non-trivial symbol/API edits and final scope claims, `$gitnexus-debugging` for failures, `$gitnexus-refactoring` for moves/renames, and `$gitnexus-cli` only for index/status/analyze operations. Still verify exact literals and dirty working-tree truth with `rg` and direct file reads.
 3. Classify the owner before changing behavior: route/API, application service, domain model, repository/data access, external client, worker/job, config, or deployment.
 4. Keep changes narrow. Preserve public contracts, explicit `None` semantics, raw upstream values, async job boundaries, and error behavior unless the task explicitly changes them.
 5. Prefer repo commands through `uv run` when the repo uses `uv`. Do not run DB init, migrations, destructive SQL, external writes, deploys, or rollbacks without explicit user request.

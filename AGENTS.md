@@ -19,7 +19,11 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$python-clean-code` for Python coding style, cleanup, and validation workflows.
 - Use `$go-clean-code` for Go coding style, cleanup, generated artifacts, and validation workflows.
 - Use `$feature-technical-writer` for feature documentation, technical guides, runbooks, architecture notes, release/migration notes, and Confluence publishing workflows.
-- If `.gitnexus/run.cjs` exists, run `node .gitnexus/run.cjs status` before relying on graph or impact data; when stale and graph accuracy matters, run `node .gitnexus/run.cjs analyze`.
+- Use `$gitnexus-guide` for GitNexus-indexed repos to choose the right graph workflow before broad manual search.
+- Use `$gitnexus-exploring` for architecture, ownership, execution-flow, caller/callee, and unfamiliar-code questions.
+- Use `$gitnexus-impact-analysis` before non-trivial symbol/API edits, before claiming blast radius, and before commit/PR scope checks.
+- Use `$gitnexus-debugging`, `$gitnexus-refactoring`, `$gitnexus-pr-review`, and `$gitnexus-cli` for bug tracing, safe rename/extract/move work, PR review, and index/status/wiki/clean operations.
+- Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
 
 ## 2. Execution Discipline
 

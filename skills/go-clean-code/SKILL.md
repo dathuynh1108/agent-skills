@@ -8,7 +8,7 @@ description: Use when working in Go services to make idiomatic scoped code chang
 ## Workflow
 
 1. Read local guidance first: `AGENTS.md` when present, `README.md`, `go.mod`, `Makefile`, CI files, and nearby tests.
-2. If `.gitnexus/run.cjs` exists, run `node .gitnexus/run.cjs status`. When the index is stale and graph impact matters, run `node .gitnexus/run.cjs analyze` before relying on impact/flow answers.
+2. For GitNexus-indexed repos, use the task-specific GitNexus skills before broad manual exploration: `$gitnexus-exploring` for flow/owner lookup, `$gitnexus-impact-analysis` before non-trivial symbol/API edits and final scope claims, `$gitnexus-debugging` for failures, `$gitnexus-refactoring` for moves/renames, and `$gitnexus-cli` only for index/status/analyze operations. Still verify exact literals and dirty working-tree truth with `rg` and direct file reads.
 3. Classify the owner before changing behavior: HTTP delivery, usecase/service, entity/model, repository, worker/consumer, external client, config, migration, or generated artifact.
 4. Keep changes small and idiomatic. Prefer clear names, early returns, useful zero values, and explicit errors with context.
 5. Preserve contexts, timeouts, cancellation, retry bounds, idempotency, and ownership claims in API/worker flows.

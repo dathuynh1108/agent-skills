@@ -9,7 +9,7 @@ description: Use when Codex needs to document a software feature, API, service b
 
 1. Identify the requested doc type, audience, and publish target. If the user asks to publish to Confluence but the space, parent page, or title is missing and cannot be discovered safely, ask for that target before publishing.
 2. Gather source evidence before drafting: user prompt, relevant repo files, local `AGENTS.md`, README/docs, tests, API specs, tickets/PRs when available, and existing Confluence pages when updating or avoiding duplicates.
-3. If `.gitnexus/run.cjs` exists, run `node .gitnexus/run.cjs status`. When the index is stale and flow/impact accuracy matters for the document, run `node .gitnexus/run.cjs analyze`.
+3. For GitNexus-indexed repos, use `$gitnexus-exploring` to gather execution flows, owners, and key symbols, `$gitnexus-impact-analysis` to document blast radius or affected processes, and `$gitnexus-cli` only when index status or refresh is needed. Use `rg` and direct file reads for exact strings, current dirty-tree content, local docs, configs, and examples.
 4. Draft from facts only. Mark unknowns as open questions instead of inventing behavior, metrics, owners, dates, or rollout state.
 5. Review technical accuracy: contracts, edge cases, permissions, configs, data flows, dependencies, rollout notes, and examples.
 6. Publish only when requested or clearly implied. Prefer creating/updating the intended Confluence page through available Atlassian/Confluence tools; otherwise provide the final Markdown and explain that publishing was unavailable.
