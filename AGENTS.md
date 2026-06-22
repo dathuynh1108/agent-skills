@@ -16,6 +16,9 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Commit only when the user explicitly asks or the workflow clearly requires it.
 - Use `$commit-rules` for staging, commit messages, and commit execution.
 - Use `$architecture-pattern-review` for architecture boundaries, pattern selection, cross-module refactors, and design reviews.
+- Use `$python-clean-code` for Python coding style, cleanup, and validation workflows.
+- Use `$go-clean-code` for Go coding style, cleanup, generated artifacts, and validation workflows.
+- If `.gitnexus/run.cjs` exists, run `node .gitnexus/run.cjs status` before relying on graph or impact data; when stale and graph accuracy matters, run `node .gitnexus/run.cjs analyze`.
 
 ## 2. Execution Discipline
 

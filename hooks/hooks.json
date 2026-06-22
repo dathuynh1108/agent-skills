@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh -lc 'root=$(git rev-parse --show-toplevel 2>/dev/null || pwd); cd \"$root\" || exit 0; printf \"\\n[Codex scope guard]\\nrepo: %s\\n\" \"$root\"; printf \"branch: \"; git branch --show-current 2>/dev/null || true; if [ -f .gitnexus/run.cjs ]; then node .gitnexus/run.cjs status || true; fi; printf \"changed files:\\n\"; git status --short; git diff --check || true'",
+            "timeout": 30,
+            "statusMessage": "Checking repo scope before final response"
+          }
+        ]
+      }
+    ]
+  }
+}

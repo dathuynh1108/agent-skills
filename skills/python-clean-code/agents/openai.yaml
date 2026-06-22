@@ -1,0 +1,4 @@
+interface:
+  display_name: "Python Clean Code"
+  short_description: "Python cleanup and validation workflow"
+  default_prompt: "Use $python-clean-code to make a scoped Python change and choose focused validation."

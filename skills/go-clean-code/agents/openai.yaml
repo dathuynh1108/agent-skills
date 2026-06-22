@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Clean Code"
+  short_description: "Go cleanup and validation workflow"
+  default_prompt: "Use $go-clean-code to make a scoped Go change and choose focused validation."
