@@ -10,6 +10,7 @@ Backup repo for personal Codex bootstrap files and custom skills.
 - `skills/commit-rules`: custom commit/staging workflow.
 - `skills/python-clean-code`: reusable Python coding style and validation workflow.
 - `skills/go-clean-code`: reusable Go coding style and validation workflow.
+- `skills/feature-technical-writer`: feature docs and Confluence publishing workflow.
 - `hooks/hooks.json`: optional Codex hook config for final scope checks.
 
 Installed or bundled skills are intentionally excluded. Do not add `.system`,
@@ -39,6 +40,7 @@ rsync -a --delete ~/.codex/skills/code-review-and-quality/ ./skills/code-review-
 rsync -a --delete ~/.codex/skills/commit-rules/ ./skills/commit-rules/
 rsync -a --delete ~/.codex/skills/python-clean-code/ ./skills/python-clean-code/
 rsync -a --delete ~/.codex/skills/go-clean-code/ ./skills/go-clean-code/
+rsync -a --delete ~/.codex/skills/feature-technical-writer/ ./skills/feature-technical-writer/
 cp ~/.codex/hooks.json ./hooks/hooks.json
 ```
 

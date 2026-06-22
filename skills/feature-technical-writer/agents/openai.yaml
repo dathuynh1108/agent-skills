@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Technical Writer"
+  short_description: "Feature docs and Confluence publishing"
+  default_prompt: "Use $feature-technical-writer to document this feature and prepare or publish the Confluence page."
