@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Pattern Review"
+  short_description: "Architecture boundaries and pattern fit"
+  default_prompt: "Use $architecture-pattern-review to assess boundaries, design pattern fit, and refactor risk."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit Rules"
+  short_description: "Conventional commit and staging rules"
+  default_prompt: "Use $commit-rules to prepare a clean commit message and staging plan."
