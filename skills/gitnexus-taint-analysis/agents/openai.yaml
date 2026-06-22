@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitNexus Taint Analysis"
+  short_description: "Review taint and PDG flows"
+  default_prompt: "Use $gitnexus-taint-analysis to work on GitNexus CFG, taint, PDG, and source-to-sink analysis."

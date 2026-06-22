@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing Strategy"
+  short_description: "Test plans and coverage"
+  default_prompt: "Use $testing-strategy to plan or improve tests for backend, data, performance-sensitive, distributed, or ML/deep-learning changes."

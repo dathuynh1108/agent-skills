@@ -1,0 +1,4 @@
+interface:
+  display_name: "System Design Review"
+  short_description: "System design and ADR review"
+  default_prompt: "Use $system-design-review to design or review a backend/system architecture with requirements, trade-offs, scale, reliability, and rollout risks."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Modeling And Storage"
+  short_description: "Schemas, migrations, indexes"
+  default_prompt: "Use $data-modeling-and-storage to design or change database schemas, migrations, indexes, query patterns, transactions, and storage choices."

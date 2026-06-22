@@ -1,0 +1,4 @@
+interface:
+  display_name: "Distributed Systems Reliability"
+  short_description: "Retries, idempotency, queues"
+  default_prompt: "Use $distributed-systems-reliability to review or design retries, idempotency, queues, events, consistency, timeouts, and failure modes."

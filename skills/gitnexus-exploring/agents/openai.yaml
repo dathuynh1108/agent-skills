@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitNexus Exploring"
+  short_description: "Explore indexed code graphs"
+  default_prompt: "Use $gitnexus-exploring to answer architecture, ownership, caller, callee, and execution-flow questions with GitNexus."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Observability And Debugging"
+  short_description: "Logs, metrics, traces, incidents"
+  default_prompt: "Use $observability-and-debugging to investigate bugs, production issues, flaky behavior, logs, metrics, traces, dashboards, and runbooks."

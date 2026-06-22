@@ -1,0 +1,4 @@
+interface:
+  display_name: "ML System Design"
+  short_description: "ML architecture and rollout"
+  default_prompt: "Use $ml-system-design to design or review ML systems, feature/training/serving pipelines, evaluation, monitoring, and model rollout."

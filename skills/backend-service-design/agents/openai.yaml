@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend Service Design"
+  short_description: "Backend APIs, services, workers"
+  default_prompt: "Use $backend-service-design to design or change backend APIs, services, repositories, workers, jobs, and external clients safely."

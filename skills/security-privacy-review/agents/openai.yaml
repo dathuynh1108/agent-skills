@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security Privacy Review"
+  short_description: "Defensive security review"
+  default_prompt: "Use $security-privacy-review to defensively review backend, API, data, logging, ML, auth, secrets, and privacy risks in code changes."

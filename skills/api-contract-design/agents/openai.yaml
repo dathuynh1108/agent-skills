@@ -1,0 +1,4 @@
+interface:
+  display_name: "API Contract Design"
+  short_description: "REST, gRPC, GraphQL, events"
+  default_prompt: "Use $api-contract-design to design or review API, DTO, event, webhook, SDK, GraphQL, gRPC, or OpenAPI contract changes."

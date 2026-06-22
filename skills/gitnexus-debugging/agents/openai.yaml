@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitNexus Debugging"
+  short_description: "Trace failures through graph"
+  default_prompt: "Use $gitnexus-debugging to trace a bug or regression through GitNexus graph context."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactoring And Clean Code"
+  short_description: "Safe behavior-preserving cleanup"
+  default_prompt: "Use $refactoring-and-clean-code to safely simplify, rename, extract, split, or clean up code while preserving behavior."

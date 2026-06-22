@@ -1,0 +1,4 @@
+interface:
+  display_name: "Performance Engineering"
+  short_description: "Measure, profile, optimize"
+  default_prompt: "Use $performance-engineering to investigate or improve latency, throughput, CPU, memory, database, caching, concurrency, or inference performance."

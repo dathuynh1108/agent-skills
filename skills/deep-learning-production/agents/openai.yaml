@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Learning Production"
+  short_description: "Training and inference systems"
+  default_prompt: "Use $deep-learning-production to implement or review DL training, evaluation, inference, GPU performance, checkpointing, packaging, and deployment."

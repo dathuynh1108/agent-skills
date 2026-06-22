@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitNexus Guide"
+  short_description: "Choose GitNexus workflows"
+  default_prompt: "Use $gitnexus-guide to choose the right GitNexus workflow before broad code search."

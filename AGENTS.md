@@ -19,10 +19,25 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$python-clean-code` for Python coding style, cleanup, and validation workflows.
 - Use `$go-clean-code` for Go coding style, cleanup, generated artifacts, and validation workflows.
 - Use `$feature-technical-writer` for feature documentation, technical guides, runbooks, architecture notes, release/migration notes, and Confluence publishing workflows.
+- Use `$system-design-review` for system design proposals, ADRs, service decomposition, scale planning, storage/queue/cache choices, reliability trade-offs, rollout plans, and design reviews.
+- Use `$backend-service-design` for backend API, service, repository, worker/job, external-client, auth flow, config, and service-boundary changes.
+- Use `$api-contract-design` for REST, gRPC, GraphQL, webhook, event, DTO, SDK, OpenAPI, protobuf, and public interface contracts.
+- Use `$data-modeling-and-storage` for schemas, migrations, indexes, query patterns, transactions, consistency, retention, backfills, and storage choices.
+- Use `$distributed-systems-reliability` for retries, idempotency, queues, events, timeouts, cancellation, backpressure, rate limits, duplicate delivery, and partial failure.
+- Use `$performance-engineering` for latency, throughput, CPU, memory, DB queries, N+1 issues, caching, pagination, batching, concurrency, cold starts, benchmark regressions, and inference speed.
+- Use `$observability-and-debugging` for production issues, flaky behavior, logs, metrics, traces, dashboards, alerts, runbooks, and instrumentation.
+- Use `$testing-strategy` for planning, adding, reviewing, or selecting tests across backend, distributed, performance, data, ML, and refactor work.
+- Use `$refactoring-and-clean-code` for language-agnostic cleanup, simplification, safe refactors, renames, extractions, and duplication/complexity reduction.
+- Use `$ml-system-design` for ML systems, feature/training/serving pipelines, evaluation, monitoring, drift handling, and model rollout strategy.
+- Use `$deep-learning-production` for DL training, fine-tuning, evaluation, inference, GPU performance, batching, quantization, checkpointing, distributed training, packaging, and deployment.
+- Use `$mlops-data-pipeline-quality` for ML/data pipelines, feature pipelines, validation, schema drift, train/serve skew, labels, backfills, lineage, monitoring, and data-quality incidents.
+- Use `$security-privacy-review` for defensive review of backend, API, data, ML, logging, secrets, auth/authz, tenant isolation, input validation, dependencies, and privacy risks.
 - Use `$gitnexus-guide` for GitNexus-indexed repos to choose the right graph workflow before broad manual search.
 - Use `$gitnexus-exploring` for architecture, ownership, execution-flow, caller/callee, and unfamiliar-code questions.
 - Use `$gitnexus-impact-analysis` before non-trivial symbol/API edits, before claiming blast radius, and before commit/PR scope checks.
 - Use `$gitnexus-debugging`, `$gitnexus-refactoring`, `$gitnexus-pr-review`, and `$gitnexus-cli` for bug tracing, safe rename/extract/move work, PR review, and index/status/wiki/clean operations.
+- Use `$gitnexus-pdg-query` for GitNexus PDG control/data-dependence questions, guard reasoning, and `pdg_query` result interpretation.
+- Use `$gitnexus-taint-analysis` for GitNexus CFG/taint/PDG subsystem work and source-to-sink data-flow analysis.
 - Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
 - After a successful commit in a GitNexus-indexed repo, use `$gitnexus-cli` to reindex before final handoff. If reindexing is unavailable or fails, report the exact command/result and remaining freshness risk.
 

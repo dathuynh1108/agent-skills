@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLOps Data Pipeline Quality"
+  short_description: "Data, features, pipelines, drift"
+  default_prompt: "Use $mlops-data-pipeline-quality to review ML/data pipelines, feature pipelines, data quality checks, backfills, drift, and train/serve skew."
