@@ -23,6 +23,9 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$backend-service-design` for backend API, service, repository, worker/job, external-client, auth flow, config, and service-boundary changes.
 - Use `$api-contract-design` for REST, gRPC, GraphQL, webhook, event, DTO, SDK, OpenAPI, protobuf, and public interface contracts.
 - Use `$data-modeling-and-storage` for schemas, migrations, indexes, query patterns, transactions, consistency, retention, backfills, and storage choices.
+- Use `$supabase-postgres-best-practices` for Postgres-specific query, index, RLS, connection, locking, JSONB, and performance work.
+- Use `$database-migration` for zero-downtime schema/data migration plans, rollback/mitigation, and cross-ORM migration strategy.
+- Use `$sqlalchemy-alembic-expert-best-practices-code-review` for SQLAlchemy model and Alembic migration implementation or review.
 - Use `$distributed-systems-reliability` for retries, idempotency, queues, events, timeouts, cancellation, backpressure, rate limits, duplicate delivery, and partial failure.
 - Use `$performance-engineering` for latency, throughput, CPU, memory, DB queries, N+1 issues, caching, pagination, batching, concurrency, cold starts, benchmark regressions, and inference speed.
 - Use `$observability-and-debugging` for production issues, flaky behavior, logs, metrics, traces, dashboards, alerts, runbooks, and instrumentation.
@@ -39,6 +42,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$gitnexus-pdg-query` for GitNexus PDG control/data-dependence questions, guard reasoning, and `pdg_query` result interpretation.
 - Use `$gitnexus-taint-analysis` for GitNexus CFG/taint/PDG subsystem work and source-to-sink data-flow analysis.
 - Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
+- For DB/MCP SQL tasks, verify actual database, table, and column shape before writing SQL; if MCP can inspect but cannot export, provide a `psql \copy (...)` query.
 - After a successful commit in a GitNexus-indexed repo, use `$gitnexus-cli` to reindex before final handoff. If reindexing is unavailable or fails, report the exact command/result and remaining freshness risk.
 
 ## 2. Execution Discipline
