@@ -6,13 +6,26 @@ $target = if ($env:TARGET_SKILLS_DIR) { $env:TARGET_SKILLS_DIR } else { Join-Pat
 $agentsSkillsDir = if ($env:AGENTS_SKILLS_DIR) { $env:AGENTS_SKILLS_DIR } else { Join-Path $HOME ".agents\skills" }
 
 $publicSkillSources = @(
+    "abhigyanpatwari/gitnexus",
     "supabase/agent-skills@supabase-postgres-best-practices",
     "wshobson/agents@database-migration",
     "wispbit-ai/skills@sqlalchemy-alembic-expert-best-practices-code-review",
     "https://github.com/Leonxlnx/taste-skill"
 )
 
+# Output skill names copied by the public sources above. Bundle sources such as
+# GitNexus and Taste Skill install many folders from one npx skills add call.
 $publicSkillNames = @(
+    "gitnexus-cli",
+    "gitnexus-debugging",
+    "gitnexus-exploring",
+    "gitnexus-guide",
+    "gitnexus-impact-analysis",
+    "gitnexus-pdg-query",
+    "gitnexus-pr-review",
+    "gitnexus-pr-swarm-review",
+    "gitnexus-refactoring",
+    "gitnexus-taint-analysis",
     "supabase-postgres-best-practices",
     "database-migration",
     "sqlalchemy-alembic-expert-best-practices-code-review",

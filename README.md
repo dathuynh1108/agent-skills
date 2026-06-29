@@ -41,6 +41,7 @@ reinstall approved public packages with `npx skills add`, then mirror them from
 - `supabase/agent-skills@supabase-postgres-best-practices`
 - `wshobson/agents@database-migration`
 - `wispbit-ai/skills@sqlalchemy-alembic-expert-best-practices-code-review`
+- `abhigyanpatwari/gitnexus` full bundle
 - `https://github.com/Leonxlnx/taste-skill` full bundle
 
 ## Restore

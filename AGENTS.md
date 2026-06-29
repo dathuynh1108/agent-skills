@@ -45,7 +45,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$gitnexus-guide` for GitNexus-indexed repos to choose the right graph workflow before broad manual search.
 - Use `$gitnexus-exploring` for architecture, ownership, execution-flow, caller/callee, and unfamiliar-code questions.
 - Use `$gitnexus-impact-analysis` before non-trivial symbol/API edits, before claiming blast radius, and before commit/PR scope checks.
-- Use `$gitnexus-debugging`, `$gitnexus-refactoring`, `$gitnexus-pr-review`, and `$gitnexus-cli` for bug tracing, safe rename/extract/move work, PR review, and index/status/wiki/clean operations.
+- Use `$gitnexus-debugging`, `$gitnexus-refactoring`, `$gitnexus-pr-review`, `$gitnexus-pr-swarm-review`, and `$gitnexus-cli` for bug tracing, safe rename/extract/move work, PR review, production-readiness PR review, and index/status/wiki/clean operations.
 - Use `$gitnexus-pdg-query` for GitNexus PDG control/data-dependence questions, guard reasoning, and `pdg_query` result interpretation.
 - Use `$gitnexus-taint-analysis` for GitNexus CFG/taint/PDG subsystem work and source-to-sink data-flow analysis.
 - Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
