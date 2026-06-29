@@ -18,6 +18,13 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$architecture-pattern-review` for architecture boundaries, pattern selection, cross-module refactors, and design reviews.
 - Use `$python-clean-code` for Python coding style, cleanup, and validation workflows.
 - Use `$go-clean-code` for Go coding style, cleanup, generated artifacts, and validation workflows.
+- Use `$design-taste-frontend` as the default anti-slop skill for premium landing pages, portfolios, marketing sites, and greenfield frontend visual work.
+- Use `$gpt-taste` when GPT/Codex needs stricter layout variance, AIDA page structure, GSAP/motion direction, and stronger anti-generic enforcement.
+- Use `$redesign-existing-projects` for existing UI/codebases; audit current typography, spacing, hierarchy, and styling first, then improve within the existing stack.
+- Use `$image-to-code` for image-first web workflows; prompt as "generate images, then analyze, then code" before implementation.
+- Use `$imagegen-frontend-web`, `$imagegen-frontend-mobile`, or `$brandkit` when the deliverable is design images, website section comps, mobile flows, or brand-kit boards rather than code.
+- Use `$high-end-visual-design`, `$minimalist-ui`, `$industrial-brutalist-ui`, or `$stitch-design-taste` when the visual direction or Stitch `DESIGN.md` output is explicitly requested; use `$design-taste-frontend-v1` only for exact v1 compatibility.
+- Use `$full-output-enforcement` when the user requests full files/exhaustive output or previous model output was truncated or placeholder-heavy.
 - Use `$feature-technical-writer` for feature documentation, technical guides, runbooks, architecture notes, release/migration notes, and Confluence publishing workflows.
 - Use `$system-design-review` for system design proposals, ADRs, service decomposition, scale planning, storage/queue/cache choices, reliability trade-offs, rollout plans, and design reviews.
 - Use `$backend-service-design` for backend API, service, repository, worker/job, external-client, auth flow, config, and service-boundary changes.
