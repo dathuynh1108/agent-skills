@@ -24,8 +24,8 @@ Backup repo for personal Codex bootstrap files and custom skills.
 - `skills/deep-learning-production`: production DL training/evaluation/inference, GPU performance, checkpointing, and deployment.
 - `skills/mlops-data-pipeline-quality`: data/feature pipelines, data quality, train/serve skew, labels, backfills, lineage, and monitoring.
 - `skills/security-privacy-review`: defensive security/privacy review for backend, API, data, ML, logging, auth, secrets, and dependencies.
-- `scripts/install-skills.ps1`: install repo skills into Windows `%USERPROFILE%\.codex\skills` or `TARGET_SKILLS_DIR`.
-- `scripts/install-skills.sh`: install repo skills into macOS/Linux `~/.codex/skills` or `TARGET_SKILLS_DIR`.
+- `scripts/install-skills.ps1`: install repo skills plus approved public `npx skills` into Windows `%USERPROFILE%\.codex\skills` or `TARGET_SKILLS_DIR`.
+- `scripts/install-skills.sh`: install repo skills plus approved public `npx skills` into macOS/Linux `~/.codex/skills` or `TARGET_SKILLS_DIR`.
 - `scripts/validate-skills.ps1`: validate skill structure on Windows and run Codex `quick_validate.py` when available.
 - `scripts/validate-skills.sh`: validate skill structure on macOS/Linux and run Codex `quick_validate.py` when available.
 - `hooks/hooks.json`: optional Codex hook config for final scope checks.
@@ -34,7 +34,19 @@ Installed or bundled skills are intentionally excluded. Do not add `.system`,
 `codex-primary-runtime`, plugin-cache skills, or skills installed from curated
 bundles unless they become real custom-maintained skills.
 
+Public skills are intentionally not vendored into this repo. The install scripts
+reinstall approved public packages with `npx skills add`, then mirror them from
+`~/.agents/skills` into the Codex target skills directory:
+
+- `supabase/agent-skills@supabase-postgres-best-practices`
+- `wshobson/agents@database-migration`
+- `wispbit-ai/skills@sqlalchemy-alembic-expert-best-practices-code-review`
+- `https://github.com/Leonxlnx/taste-skill` full bundle
+
 ## Restore
+
+Restore requires Node.js/npm for the public `npx skills` installs. Set
+`SKIP_PUBLIC_SKILLS=1` if you only want the repo-managed custom skills.
 
 From a fresh Windows machine, run in PowerShell from the repo root:
 
@@ -80,6 +92,10 @@ rsync -a --delete ~/.codex/skills/mlops-data-pipeline-quality/ ./skills/mlops-da
 rsync -a --delete ~/.codex/skills/security-privacy-review/ ./skills/security-privacy-review/
 cp ~/.codex/hooks.json ./hooks/hooks.json
 ```
+
+Public `npx` skills should stay out of `skills/`. Update the public source list
+inside `scripts/install-skills.sh` and `scripts/install-skills.ps1` when adding
+or removing approved external skill packages.
 
 Then validate before committing on Windows:
 

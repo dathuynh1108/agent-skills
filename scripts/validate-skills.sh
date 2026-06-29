@@ -65,26 +65,38 @@ for d in skills/*; do
   echo "[OK] $name"
 done
 
-python_cmd=""
-if command -v python3 >/dev/null 2>&1; then
-  python_cmd="python3"
-elif command -v python >/dev/null 2>&1; then
-  python_cmd="python"
-fi
-
 codex_home="${CODEX_HOME:-$HOME/.codex}"
 quick_validate="$codex_home/skills/.system/skill-creator/scripts/quick_validate.py"
 if [ -f "$quick_validate" ]; then
-  if [ -n "$python_cmd" ]; then
+  if command -v uv >/dev/null 2>&1; then
     echo ""
-    echo "Running Codex quick_validate.py..."
+    echo "Running Codex quick_validate.py with uv + pyyaml..."
     for d in skills/*; do
       [ -f "$d/SKILL.md" ] || continue
-      "$python_cmd" "$quick_validate" "$PWD/$d"
+      uv run --with pyyaml python "$quick_validate" "$PWD/$d"
     done
   else
-    echo ""
-    echo "Python not found; skipped optional Codex quick_validate.py."
+    python_cmd=""
+    if command -v python3 >/dev/null 2>&1; then
+      python_cmd="python3"
+    elif command -v python >/dev/null 2>&1; then
+      python_cmd="python"
+    fi
+
+    if [ -n "$python_cmd" ] && "$python_cmd" -c "import yaml" >/dev/null 2>&1; then
+      echo ""
+      echo "Running Codex quick_validate.py..."
+      for d in skills/*; do
+        [ -f "$d/SKILL.md" ] || continue
+        "$python_cmd" "$quick_validate" "$PWD/$d"
+      done
+    elif [ -n "$python_cmd" ]; then
+      echo ""
+      echo "Python found but PyYAML is missing; install PyYAML or uv to run optional Codex quick_validate.py."
+    else
+      echo ""
+      echo "Python not found; skipped optional Codex quick_validate.py."
+    fi
   fi
 else
   echo ""
