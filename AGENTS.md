@@ -17,7 +17,10 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$commit-rules` for staging, commit messages, and commit execution.
 - Use `$architecture-pattern-review` for architecture boundaries, pattern selection, cross-module refactors, and design reviews.
 - Use `$python-clean-code` for Python coding style, cleanup, and validation workflows.
+- Use `$python-code-style`, `$python-design-patterns`, `$python-project-structure`, `$python-testing-patterns`, and `$python-performance-optimization` for Python-specific conventions, layout, testing, and performance standards.
+- Use `$fastapi` and `$fastapi-templates` for FastAPI-specific route structure, dependency injection, async patterns, Pydantic schemas, service/repository layout, and API project scaffolding.
 - Use `$go-clean-code` for Go coding style, cleanup, generated artifacts, and validation workflows.
+- Use targeted `golang-*` skills from `samber/cc-skills-golang` for Go-specific standards, especially `$golang-code-style`, `$golang-naming`, `$golang-project-layout`, `$golang-error-handling`, `$golang-context`, `$golang-concurrency`, `$golang-testing`, `$golang-security`, `$golang-database`, `$golang-performance`, and `$golang-observability`.
 - Use `$design-taste-frontend` as the default anti-slop skill for premium landing pages, portfolios, marketing sites, and greenfield frontend visual work.
 - Use `$gpt-taste` when GPT/Codex needs stricter layout variance, AIDA page structure, GSAP/motion direction, and stronger anti-generic enforcement.
 - Use `$redesign-existing-projects` for existing UI/codebases; audit current typography, spacing, hierarchy, and styling first, then improve within the existing stack.
@@ -29,6 +32,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$system-design-review` for system design proposals, ADRs, service decomposition, scale planning, storage/queue/cache choices, reliability trade-offs, rollout plans, and design reviews.
 - Use `$backend-service-design` for backend API, service, repository, worker/job, external-client, auth flow, config, and service-boundary changes.
 - Use `$api-contract-design` for REST, gRPC, GraphQL, webhook, event, DTO, SDK, OpenAPI, protobuf, and public interface contracts.
+- Use `$api-design-principles` for REST/GraphQL API shape details such as resources, pagination, filters, status codes, error payloads, versioning, and rate-limit conventions.
 - Use `$data-modeling-and-storage` for schemas, migrations, indexes, query patterns, transactions, consistency, retention, backfills, and storage choices.
 - Use `$supabase-postgres-best-practices` for Postgres-specific query, index, RLS, connection, locking, JSONB, and performance work.
 - Use `$database-migration` for zero-downtime schema/data migration plans, rollback/mitigation, and cross-ORM migration strategy.

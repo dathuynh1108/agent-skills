@@ -40,8 +40,17 @@ reinstall approved public packages with `npx skills add`, then mirror them from
 
 - `supabase/agent-skills@supabase-postgres-best-practices`
 - `wshobson/agents@database-migration`
+- `wshobson/agents@api-design-principles`
+- `wshobson/agents@python-code-style`
+- `wshobson/agents@python-design-patterns`
+- `wshobson/agents@python-project-structure`
+- `wshobson/agents@python-testing-patterns`
+- `wshobson/agents@python-performance-optimization`
+- `wshobson/agents@fastapi-templates`
+- `fastapi/fastapi@fastapi`
 - `wispbit-ai/skills@sqlalchemy-alembic-expert-best-practices-code-review`
 - `abhigyanpatwari/gitnexus` full bundle
+- `https://github.com/samber/cc-skills-golang` full bundle with `--all`
 - `https://github.com/Leonxlnx/taste-skill` full bundle
 
 ## Restore
