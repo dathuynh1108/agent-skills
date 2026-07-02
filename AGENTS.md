@@ -50,6 +50,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$gitnexus-taint-analysis` for GitNexus CFG/taint/PDG subsystem work and source-to-sink data-flow analysis.
 - Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
 - For DB/MCP SQL tasks, verify actual database, table, and column shape before writing SQL; if MCP can inspect but cannot export, provide a `psql \copy (...)` query.
+- Data-loader, crawler, ETL, and normal query/runtime paths must verify required schema and fail visibly when tables, columns, or indexes are missing; do not lazily create, alter, migrate, index, or backfill schema during normal reads/writes. Schema changes must go through explicit migrations or approved one-off migration scripts.
 - After a successful commit in a GitNexus-indexed repo, use `$gitnexus-cli` to reindex before final handoff. If reindexing is unavailable or fails, report the exact command/result and remaining freshness risk.
 
 ## 2. Execution Discipline
