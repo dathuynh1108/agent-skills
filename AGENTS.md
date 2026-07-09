@@ -46,6 +46,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$deep-learning-production` for DL training, fine-tuning, evaluation, inference, GPU performance, batching, quantization, checkpointing, distributed training, packaging, and deployment.
 - Use `$mlops-data-pipeline-quality` for ML/data pipelines, feature pipelines, validation, schema drift, train/serve skew, labels, backfills, lineage, monitoring, and data-quality incidents.
 - Use `$security-privacy-review` for defensive review of backend, API, data, ML, logging, secrets, auth/authz, tenant isolation, input validation, dependencies, and privacy risks.
+- Use `codex-security:security-scan` for repository or scoped-path security scans, `codex-security:security-diff-scan` for PR/commit/branch/working-tree security reviews, `codex-security:deep-security-scan` for exhaustive multi-pass scans, `codex-security:triage-finding` for imported scanner/advisory findings, and `codex-security:fix-finding` for validated security fixes.
 - Use `$gitnexus-guide` for GitNexus-indexed repos to choose the right graph workflow before broad manual search.
 - Use `$gitnexus-exploring` for architecture, ownership, execution-flow, caller/callee, and unfamiliar-code questions.
 - Use `$gitnexus-impact-analysis` before non-trivial symbol/API edits, before claiming blast radius, and before commit/PR scope checks.

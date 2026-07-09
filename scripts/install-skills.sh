@@ -6,6 +6,10 @@ CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
 TARGET="${TARGET_SKILLS_DIR:-$CODEX_HOME_DIR/skills}"
 AGENTS_SKILLS_DIR="${AGENTS_SKILLS_DIR:-$HOME/.agents/skills}"
 
+REQUIRED_CODEX_PLUGINS=(
+  "codex-security"
+)
+
 PUBLIC_SKILL_SOURCES=(
   "abhigyanpatwari/gitnexus"
   "supabase/agent-skills@supabase-postgres-best-practices"
@@ -110,6 +114,46 @@ PUBLIC_SKILL_NAMES=(
 )
 
 mkdir -p "$TARGET"
+
+is_plugin_enabled() {
+  local plugin="$1"
+  local config="$CODEX_HOME_DIR/config.toml"
+  local section="[plugins.\"$plugin@openai-curated\"]"
+
+  [ -f "$config" ] || return 1
+  awk -v section="$section" '
+    $0 == section { in_section = 1; next }
+    /^\[/ { in_section = 0 }
+    in_section && $1 == "enabled" && $3 == "true" { found = 1 }
+    END { exit(found ? 0 : 1) }
+  ' "$config"
+}
+
+if [ "${SKIP_PLUGIN_CHECKS:-0}" = "1" ]; then
+  echo "Skipped Codex plugin checks because SKIP_PLUGIN_CHECKS=1"
+else
+  missing_plugin=0
+  for plugin in "${REQUIRED_CODEX_PLUGINS[@]}"; do
+    if [ -d "$CODEX_HOME_DIR/plugins/cache/openai-curated-remote/$plugin" ] || [ -d "$CODEX_HOME_DIR/plugins/cache/openai-curated/$plugin" ]; then
+      :
+    else
+      echo "Missing Codex plugin cache: $plugin" >&2
+      missing_plugin=1
+    fi
+
+    if is_plugin_enabled "$plugin"; then
+      echo "Verified Codex plugin enabled: $plugin@openai-curated"
+    else
+      echo "Missing or disabled Codex plugin config: $plugin@openai-curated" >&2
+      missing_plugin=1
+    fi
+  done
+
+  if [ "$missing_plugin" -ne 0 ]; then
+    echo "Install or enable required Codex plugins in Codex, then rerun. These are plugin-managed, not npx skills." >&2
+    exit 1
+  fi
+fi
 
 if command -v rsync >/dev/null 2>&1; then
   rsync -a "$ROOT/skills/" "$TARGET/"

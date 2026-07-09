@@ -53,10 +53,17 @@ reinstall approved public packages with `npx skills add`, then mirror them from
 - `https://github.com/samber/cc-skills-golang` full bundle with `--all`
 - `https://github.com/Leonxlnx/taste-skill` full bundle
 
+Required Codex plugins are plugin-managed by Codex, not `npx skills`. The
+install scripts verify they are present and enabled before restoring skills:
+
+- `codex-security@openai-curated`
+
 ## Restore
 
 Restore requires Node.js/npm for the public `npx skills` installs. Set
 `SKIP_PUBLIC_SKILLS=1` if you only want the repo-managed custom skills.
+Set `SKIP_PLUGIN_CHECKS=1` only when restoring into an environment where Codex
+plugins are intentionally unavailable.
 
 From a fresh Windows machine, run in PowerShell from the repo root:
 

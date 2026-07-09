@@ -5,6 +5,10 @@ $codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME ".c
 $target = if ($env:TARGET_SKILLS_DIR) { $env:TARGET_SKILLS_DIR } else { Join-Path $codexHome "skills" }
 $agentsSkillsDir = if ($env:AGENTS_SKILLS_DIR) { $env:AGENTS_SKILLS_DIR } else { Join-Path $HOME ".agents\skills" }
 
+$requiredCodexPlugins = @(
+    "codex-security"
+)
+
 $publicSkillSources = @(
     "abhigyanpatwari/gitnexus",
     "supabase/agent-skills@supabase-postgres-best-practices",
@@ -108,7 +112,60 @@ $publicSkillNames = @(
     "stitch-design-taste"
 )
 
+function Test-CodexPluginEnabled {
+    param([string]$Name)
+
+    $config = Join-Path $codexHome "config.toml"
+    if (-not (Test-Path $config)) {
+        return $false
+    }
+
+    $section = "[plugins.`"$Name@openai-curated`"]"
+    $inSection = $false
+    foreach ($line in Get-Content -LiteralPath $config) {
+        if ($line -eq $section) {
+            $inSection = $true
+            continue
+        }
+
+        if ($line -match '^\[') {
+            $inSection = $false
+        }
+
+        if ($inSection -and $line -match '^\s*enabled\s*=\s*true\s*$') {
+            return $true
+        }
+    }
+
+    return $false
+}
+
 New-Item -ItemType Directory -Path $target -Force | Out-Null
+
+if ($env:SKIP_PLUGIN_CHECKS -eq "1") {
+    Write-Output "Skipped Codex plugin checks because SKIP_PLUGIN_CHECKS=1"
+} else {
+    $missingPlugin = $false
+    foreach ($plugin in $requiredCodexPlugins) {
+        $remoteCache = Join-Path $codexHome "plugins\cache\openai-curated-remote\$plugin"
+        $curatedCache = Join-Path $codexHome "plugins\cache\openai-curated\$plugin"
+        if (-not ((Test-Path $remoteCache) -or (Test-Path $curatedCache))) {
+            Write-Warning "Missing Codex plugin cache: $plugin"
+            $missingPlugin = $true
+        }
+
+        if (Test-CodexPluginEnabled -Name $plugin) {
+            Write-Output "Verified Codex plugin enabled: $plugin@openai-curated"
+        } else {
+            Write-Warning "Missing or disabled Codex plugin config: $plugin@openai-curated"
+            $missingPlugin = $true
+        }
+    }
+
+    if ($missingPlugin) {
+        throw "Install or enable required Codex plugins in Codex, then rerun. These are plugin-managed, not npx skills."
+    }
+}
 
 $source = Join-Path $root "skills"
 Get-ChildItem -Path $source -Directory | ForEach-Object {
