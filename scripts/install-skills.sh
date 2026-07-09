@@ -10,6 +10,19 @@ REQUIRED_CODEX_PLUGINS=(
   "codex-security"
 )
 
+REQUIRED_CODEX_PLUGIN_SKILLS=(
+  "codex-security:attack-path-analysis"
+  "codex-security:deep-security-scan"
+  "codex-security:finding-discovery"
+  "codex-security:fix-finding"
+  "codex-security:security-diff-scan"
+  "codex-security:security-scan"
+  "codex-security:threat-model"
+  "codex-security:track-findings"
+  "codex-security:triage-finding"
+  "codex-security:validation"
+)
+
 PUBLIC_SKILL_SOURCES=(
   "abhigyanpatwari/gitnexus"
   "supabase/agent-skills@supabase-postgres-best-practices"
@@ -129,6 +142,24 @@ is_plugin_enabled() {
   ' "$config"
 }
 
+has_plugin_skill() {
+  local plugin="$1"
+  local skill="$2"
+  local root
+
+  for root in \
+    "$CODEX_HOME_DIR/plugins/cache/openai-curated-remote/$plugin"/* \
+    "$CODEX_HOME_DIR/plugins/cache/openai-curated/$plugin"/* \
+    "$CODEX_HOME_DIR/plugins/cache/openai-curated-remote/$plugin" \
+    "$CODEX_HOME_DIR/plugins/cache/openai-curated/$plugin"; do
+    if [ -f "$root/skills/$skill/SKILL.md" ]; then
+      return 0
+    fi
+  done
+
+  return 1
+}
+
 if [ "${SKIP_PLUGIN_CHECKS:-0}" = "1" ]; then
   echo "Skipped Codex plugin checks because SKIP_PLUGIN_CHECKS=1"
 else
@@ -145,6 +176,17 @@ else
       echo "Verified Codex plugin enabled: $plugin@openai-curated"
     else
       echo "Missing or disabled Codex plugin config: $plugin@openai-curated" >&2
+      missing_plugin=1
+    fi
+  done
+
+  for entry in "${REQUIRED_CODEX_PLUGIN_SKILLS[@]}"; do
+    plugin="${entry%%:*}"
+    skill="${entry#*:}"
+    if has_plugin_skill "$plugin" "$skill"; then
+      echo "Verified Codex plugin skill: $plugin:$skill"
+    else
+      echo "Missing Codex plugin skill: $plugin:$skill" >&2
       missing_plugin=1
     fi
   done

@@ -9,6 +9,19 @@ $requiredCodexPlugins = @(
     "codex-security"
 )
 
+$requiredCodexPluginSkills = @(
+    "codex-security:attack-path-analysis",
+    "codex-security:deep-security-scan",
+    "codex-security:finding-discovery",
+    "codex-security:fix-finding",
+    "codex-security:security-diff-scan",
+    "codex-security:security-scan",
+    "codex-security:threat-model",
+    "codex-security:track-findings",
+    "codex-security:triage-finding",
+    "codex-security:validation"
+)
+
 $publicSkillSources = @(
     "abhigyanpatwari/gitnexus",
     "supabase/agent-skills@supabase-postgres-best-practices",
@@ -140,6 +153,34 @@ function Test-CodexPluginEnabled {
     return $false
 }
 
+function Test-CodexPluginSkill {
+    param(
+        [string]$Name,
+        [string]$Skill
+    )
+
+    $roots = @(
+        (Join-Path $codexHome "plugins\cache\openai-curated-remote\$Name"),
+        (Join-Path $codexHome "plugins\cache\openai-curated\$Name")
+    )
+
+    foreach ($root in $roots) {
+        if (Test-Path (Join-Path $root "skills\$Skill\SKILL.md")) {
+            return $true
+        }
+
+        if (Test-Path $root) {
+            foreach ($versionDir in Get-ChildItem -Path $root -Directory) {
+                if (Test-Path (Join-Path $versionDir.FullName "skills\$Skill\SKILL.md")) {
+                    return $true
+                }
+            }
+        }
+    }
+
+    return $false
+}
+
 New-Item -ItemType Directory -Path $target -Force | Out-Null
 
 if ($env:SKIP_PLUGIN_CHECKS -eq "1") {
@@ -158,6 +199,18 @@ if ($env:SKIP_PLUGIN_CHECKS -eq "1") {
             Write-Output "Verified Codex plugin enabled: $plugin@openai-curated"
         } else {
             Write-Warning "Missing or disabled Codex plugin config: $plugin@openai-curated"
+            $missingPlugin = $true
+        }
+    }
+
+    foreach ($entry in $requiredCodexPluginSkills) {
+        $parts = $entry -split ":", 2
+        $plugin = $parts[0]
+        $skill = $parts[1]
+        if (Test-CodexPluginSkill -Name $plugin -Skill $skill) {
+            Write-Output "Verified Codex plugin skill: ${plugin}:${skill}"
+        } else {
+            Write-Warning "Missing Codex plugin skill: ${plugin}:${skill}"
             $missingPlugin = $true
         }
     }

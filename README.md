@@ -54,9 +54,14 @@ reinstall approved public packages with `npx skills add`, then mirror them from
 - `https://github.com/Leonxlnx/taste-skill` full bundle
 
 Required Codex plugins are plugin-managed by Codex, not `npx skills`. The
-install scripts verify they are present and enabled before restoring skills:
+install scripts verify they are present, enabled, and expose required skills
+before restoring skills:
 
 - `codex-security@openai-curated`
+
+Codex Security required workflows include security scans, diff scans, deep scans,
+threat modeling, finding discovery, validation, attack-path analysis, finding
+triage, finding fixes, and issue/advisory tracking.
 
 ## Restore
 
