@@ -24,6 +24,14 @@ $requiredCodexPluginSkills = @(
 
 $publicSkillSources = @(
     "abhigyanpatwari/gitnexus",
+    "vercel-labs/skills@find-skills",
+    "vercel-labs/agent-skills@vercel-composition-patterns",
+    "jeffallan/claude-skills@kubernetes-specialist",
+    "jeffallan/claude-skills@websocket-engineer",
+    "redis/agent-skills@redis-core",
+    "redis/agent-skills@redis-connections",
+    "redis/agent-skills@redis-observability",
+    "redis/agent-skills@redis-clustering",
     "supabase/agent-skills@supabase-postgres-best-practices",
     "wshobson/agents@database-migration",
     "wshobson/agents@api-design-principles",
@@ -39,15 +47,20 @@ $publicSkillSources = @(
 )
 
 $publicSkillAllSources = @(
+    "https://github.com/addyosmani/web-quality-skills",
     "https://github.com/samber/cc-skills-golang"
 )
 
-# Output skill names copied by the public sources above. Bundle sources such as
+# Output skill names installed by the public sources above. Bundle sources such as
 # GitNexus, Go, and Taste Skill install many folders from one npx skills add call.
 $publicSkillNames = @(
+    "accessibility",
     "api-design-principles",
+    "best-practices",
+    "core-web-vitals",
     "fastapi",
     "fastapi-templates",
+    "find-skills",
     "gitnexus-cli",
     "gitnexus-debugging",
     "gitnexus-exploring",
@@ -58,6 +71,7 @@ $publicSkillNames = @(
     "gitnexus-pr-swarm-review",
     "gitnexus-refactoring",
     "gitnexus-taint-analysis",
+    "kubernetes-specialist",
     "golang-benchmark",
     "golang-cli",
     "golang-code-style",
@@ -72,6 +86,7 @@ $publicSkillNames = @(
     "golang-documentation",
     "golang-error-handling",
     "golang-google-wire",
+    "golang-gopls",
     "golang-graphql",
     "golang-grpc",
     "golang-how-to",
@@ -83,6 +98,7 @@ $publicSkillNames = @(
     "golang-pkg-go-dev",
     "golang-popular-libraries",
     "golang-project-layout",
+    "golang-refactoring",
     "golang-safety",
     "golang-samber-do",
     "golang-samber-hot",
@@ -107,9 +123,18 @@ $publicSkillNames = @(
     "python-performance-optimization",
     "python-project-structure",
     "python-testing-patterns",
+    "performance",
+    "redis-clustering",
+    "redis-connections",
+    "redis-core",
+    "redis-observability",
+    "seo",
     "supabase-postgres-best-practices",
     "database-migration",
     "sqlalchemy-alembic-expert-best-practices-code-review",
+    "vercel-composition-patterns",
+    "web-quality-audit",
+    "websocket-engineer",
     "brandkit",
     "design-taste-frontend",
     "design-taste-frontend-v1",
@@ -260,15 +285,10 @@ if ($env:SKIP_PUBLIC_SKILLS -eq "1") {
         if (-not (Test-Path $skillMd)) {
             throw "Missing public skill after install: $skillMd"
         }
-
-        $destination = Join-Path $target $name
-        if (Test-Path $destination) {
-            Remove-Item -LiteralPath $destination -Recurse -Force
-        }
-        Copy-Item -LiteralPath $installedSkill -Destination $destination -Recurse
     }
 
-    Write-Output "Installed public npx skills from $agentsSkillsDir to $target"
+    Write-Output "Verified public npx skills in $agentsSkillsDir"
+    Write-Output "Codex discovers the universal agents skill root directly; public skills were not copied to $target"
 }
 
 Write-Output "Override with `$env:TARGET_SKILLS_DIR='C:\path\to\skills'; .\scripts\install-skills.ps1"

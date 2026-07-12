@@ -16,17 +16,20 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Commit only when the user explicitly asks or the workflow clearly requires it.
 - Use `$commit-rules` for staging, commit messages, and commit execution.
 - Use `$architecture-pattern-review` for architecture boundaries, pattern selection, cross-module refactors, and design reviews.
+- Use `$find-skills` when the user wants installable capabilities or public skill recommendations; verify the live source, exact skill name, installability, reputation, and overlap before adding anything to the shared bootstrap.
 - Use `$python-clean-code` for Python coding style, cleanup, and validation workflows.
 - Use `$python-code-style`, `$python-design-patterns`, `$python-project-structure`, `$python-testing-patterns`, and `$python-performance-optimization` for Python-specific conventions, layout, testing, and performance standards.
 - Use `$fastapi` and `$fastapi-templates` for FastAPI-specific route structure, dependency injection, async patterns, Pydantic schemas, service/repository layout, and API project scaffolding.
 - Use `$go-clean-code` for Go coding style, cleanup, generated artifacts, and validation workflows.
-- Use targeted `golang-*` skills from `samber/cc-skills-golang` for Go-specific standards, especially `$golang-code-style`, `$golang-naming`, `$golang-project-layout`, `$golang-error-handling`, `$golang-context`, `$golang-concurrency`, `$golang-testing`, `$golang-security`, `$golang-database`, `$golang-performance`, and `$golang-observability`.
+- Use targeted `golang-*` skills from `samber/cc-skills-golang` for Go-specific standards, especially `$golang-code-style`, `$golang-naming`, `$golang-project-layout`, `$golang-gopls`, `$golang-refactoring`, `$golang-error-handling`, `$golang-context`, `$golang-concurrency`, `$golang-testing`, `$golang-security`, `$golang-database`, `$golang-performance`, and `$golang-observability`.
+- Use `$vercel-composition-patterns` for scalable React component APIs, compound components, state ownership, and boolean-prop cleanup. For Next.js version-specific behavior, prefer the project's current source and bundled framework docs over retired global Next.js guidance.
 - Use `$design-taste-frontend` as the default anti-slop skill for premium landing pages, portfolios, marketing sites, and greenfield frontend visual work.
 - Use `$gpt-taste` when GPT/Codex needs stricter layout variance, AIDA page structure, GSAP/motion direction, and stronger anti-generic enforcement.
 - Use `$redesign-existing-projects` for existing UI/codebases; audit current typography, spacing, hierarchy, and styling first, then improve within the existing stack.
 - Use `$image-to-code` for image-first web workflows; prompt as "generate images, then analyze, then code" before implementation.
 - Use `$imagegen-frontend-web`, `$imagegen-frontend-mobile`, or `$brandkit` when the deliverable is design images, website section comps, mobile flows, or brand-kit boards rather than code.
 - Use `$high-end-visual-design`, `$minimalist-ui`, `$industrial-brutalist-ui`, or `$stitch-design-taste` when the visual direction or Stitch `DESIGN.md` output is explicitly requested; use `$design-taste-frontend-v1` only for exact v1 compatibility.
+- Use `$web-quality-audit` for comprehensive web quality reviews, loading its bundled `$performance`, `$core-web-vitals`, `$accessibility`, `$seo`, and `$best-practices` guidance as needed.
 - Use `$full-output-enforcement` when the user requests full files/exhaustive output or previous model output was truncated or placeholder-heavy.
 - Use `$feature-technical-writer` for feature documentation, technical guides, runbooks, architecture notes, release/migration notes, and Confluence publishing workflows.
 - Use `$system-design-review` for system design proposals, ADRs, service decomposition, scale planning, storage/queue/cache choices, reliability trade-offs, rollout plans, and design reviews.
@@ -38,6 +41,9 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$database-migration` for zero-downtime schema/data migration plans, rollback/mitigation, and cross-ORM migration strategy.
 - Use `$sqlalchemy-alembic-expert-best-practices-code-review` for SQLAlchemy model and Alembic migration implementation or review.
 - Use `$distributed-systems-reliability` for retries, idempotency, queues, events, timeouts, cancellation, backpressure, rate limits, duplicate delivery, and partial failure.
+- Use `$kubernetes-specialist` for Kubernetes workloads, Helm, RBAC, NetworkPolicies, resource sizing, rollout validation, troubleshooting, and GitOps operations.
+- Use `$redis-core`, `$redis-connections`, `$redis-observability`, and `$redis-clustering` for Redis data structures and key design, pools/timeouts/pipelining, incident diagnostics, replication, and cluster-safe multi-key behavior.
+- Use `$websocket-engineer` for WebSocket or Socket.IO authentication, rooms/presence, Redis-backed horizontal scaling, sticky sessions, connection validation, and realtime monitoring.
 - Use `$performance-engineering` for latency, throughput, CPU, memory, DB queries, N+1 issues, caching, pagination, batching, concurrency, cold starts, benchmark regressions, and inference speed.
 - Use `$observability-and-debugging` for production issues, flaky behavior, logs, metrics, traces, dashboards, alerts, runbooks, and instrumentation.
 - Use `$testing-strategy` for planning, adding, reviewing, or selecting tests across backend, distributed, performance, data, ML, and refactor work.

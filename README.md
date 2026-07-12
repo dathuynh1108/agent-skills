@@ -24,8 +24,10 @@ Backup repo for personal Codex bootstrap files and custom skills.
 - `skills/deep-learning-production`: production DL training/evaluation/inference, GPU performance, checkpointing, and deployment.
 - `skills/mlops-data-pipeline-quality`: data/feature pipelines, data quality, train/serve skew, labels, backfills, lineage, and monitoring.
 - `skills/security-privacy-review`: defensive security/privacy review for backend, API, data, ML, logging, auth, secrets, and dependencies.
-- `scripts/install-skills.ps1`: install repo skills plus approved public `npx skills` into Windows `%USERPROFILE%\.codex\skills` or `TARGET_SKILLS_DIR`.
-- `scripts/install-skills.sh`: install repo skills plus approved public `npx skills` into macOS/Linux `~/.codex/skills` or `TARGET_SKILLS_DIR`.
+- `scripts/install-skills.ps1`: install repo-managed skills into Windows `%USERPROFILE%\.codex\skills` or `TARGET_SKILLS_DIR`, and approved public skills into `%USERPROFILE%\.agents\skills`.
+- `scripts/install-skills.sh`: install repo-managed skills into macOS/Linux `~/.codex/skills` or `TARGET_SKILLS_DIR`, and approved public skills into `~/.agents/skills`.
+- `scripts/test-install-skills.ps1`: verify the same public/custom skill isolation behavior on Windows.
+- `scripts/test-install-skills.sh`: verify public skills remain in the universal agents root and do not overwrite Codex-local custom skills.
 - `scripts/validate-skills.ps1`: validate skill structure on Windows and run Codex `quick_validate.py` when available.
 - `scripts/validate-skills.sh`: validate skill structure on macOS/Linux and run Codex `quick_validate.py` when available.
 - `hooks/hooks.json`: optional Codex hook config for final scope checks.
@@ -35,8 +37,9 @@ Installed or bundled skills are intentionally excluded. Do not add `.system`,
 bundles unless they become real custom-maintained skills.
 
 Public skills are intentionally not vendored into this repo. The install scripts
-reinstall approved public packages with `npx skills add`, then mirror them from
-`~/.agents/skills` into the Codex target skills directory:
+reinstall approved public packages with `npx skills add` into the universal
+`~/.agents/skills` root, which current Codex versions discover directly. Public
+skills are not mirrored into the Codex-local custom skills directory:
 
 - `supabase/agent-skills@supabase-postgres-best-practices`
 - `wshobson/agents@database-migration`
@@ -50,8 +53,21 @@ reinstall approved public packages with `npx skills add`, then mirror them from
 - `fastapi/fastapi@fastapi`
 - `wispbit-ai/skills@sqlalchemy-alembic-expert-best-practices-code-review`
 - `abhigyanpatwari/gitnexus` full bundle
+- `vercel-labs/skills@find-skills`
+- `vercel-labs/agent-skills@vercel-composition-patterns`
+- `jeffallan/claude-skills@kubernetes-specialist`
+- `jeffallan/claude-skills@websocket-engineer`
+- `redis/agent-skills@redis-core`
+- `redis/agent-skills@redis-connections`
+- `redis/agent-skills@redis-observability`
+- `redis/agent-skills@redis-clustering`
+- `https://github.com/addyosmani/web-quality-skills` full bundle with `--all`
 - `https://github.com/samber/cc-skills-golang` full bundle with `--all`
 - `https://github.com/Leonxlnx/taste-skill` full bundle
+
+Vercel retired the global `next-best-practices` skill in favor of
+version-matched Next.js bundled docs and generated project agent guidance, so
+the bootstrap intentionally does not pin the stale skill.
 
 Required Codex plugins are plugin-managed by Codex, not `npx skills`. The
 install scripts verify they are present, enabled, and expose required skills
@@ -69,6 +85,11 @@ Restore requires Node.js/npm for the public `npx skills` installs. Set
 `SKIP_PUBLIC_SKILLS=1` if you only want the repo-managed custom skills.
 Set `SKIP_PLUGIN_CHECKS=1` only when restoring into an environment where Codex
 plugins are intentionally unavailable.
+
+Older restores may contain identical public skill copies under both
+`~/.agents/skills` and `~/.codex/skills`. Remove a Codex-local copy only after
+confirming its complete directory tree matches the canonical public copy;
+preserve any divergent local override.
 
 From a fresh Windows machine, run in PowerShell from the repo root:
 
@@ -122,11 +143,13 @@ or removing approved external skill packages.
 Then validate before committing on Windows:
 
 ```powershell
+.\scripts\test-install-skills.ps1
 .\scripts\validate-skills.ps1
 ```
 
 Or on macOS/Linux:
 
 ```bash
+./scripts/test-install-skills.sh
 ./scripts/validate-skills.sh
 ```

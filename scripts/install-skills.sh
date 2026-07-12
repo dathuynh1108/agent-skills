@@ -25,6 +25,14 @@ REQUIRED_CODEX_PLUGIN_SKILLS=(
 
 PUBLIC_SKILL_SOURCES=(
   "abhigyanpatwari/gitnexus"
+  "vercel-labs/skills@find-skills"
+  "vercel-labs/agent-skills@vercel-composition-patterns"
+  "jeffallan/claude-skills@kubernetes-specialist"
+  "jeffallan/claude-skills@websocket-engineer"
+  "redis/agent-skills@redis-core"
+  "redis/agent-skills@redis-connections"
+  "redis/agent-skills@redis-observability"
+  "redis/agent-skills@redis-clustering"
   "supabase/agent-skills@supabase-postgres-best-practices"
   "wshobson/agents@database-migration"
   "wshobson/agents@api-design-principles"
@@ -40,15 +48,20 @@ PUBLIC_SKILL_SOURCES=(
 )
 
 PUBLIC_SKILL_ALL_SOURCES=(
+  "https://github.com/addyosmani/web-quality-skills"
   "https://github.com/samber/cc-skills-golang"
 )
 
-# Output skill names copied by the public sources above. Bundle sources such as
-# GitNexus, Go, and Taste Skill install many folders from one `npx skills add` call.
+# Output skill names installed by the public sources above. Bundle sources such
+# as GitNexus, Go, and Taste Skill install many folders from one `npx skills add` call.
 PUBLIC_SKILL_NAMES=(
+  "accessibility"
   "api-design-principles"
+  "best-practices"
+  "core-web-vitals"
   "fastapi"
   "fastapi-templates"
+  "find-skills"
   "gitnexus-cli"
   "gitnexus-debugging"
   "gitnexus-exploring"
@@ -59,6 +72,7 @@ PUBLIC_SKILL_NAMES=(
   "gitnexus-pr-swarm-review"
   "gitnexus-refactoring"
   "gitnexus-taint-analysis"
+  "kubernetes-specialist"
   "golang-benchmark"
   "golang-cli"
   "golang-code-style"
@@ -73,6 +87,7 @@ PUBLIC_SKILL_NAMES=(
   "golang-documentation"
   "golang-error-handling"
   "golang-google-wire"
+  "golang-gopls"
   "golang-graphql"
   "golang-grpc"
   "golang-how-to"
@@ -84,6 +99,7 @@ PUBLIC_SKILL_NAMES=(
   "golang-pkg-go-dev"
   "golang-popular-libraries"
   "golang-project-layout"
+  "golang-refactoring"
   "golang-safety"
   "golang-samber-do"
   "golang-samber-hot"
@@ -108,9 +124,18 @@ PUBLIC_SKILL_NAMES=(
   "python-performance-optimization"
   "python-project-structure"
   "python-testing-patterns"
+  "performance"
+  "redis-clustering"
+  "redis-connections"
+  "redis-core"
+  "redis-observability"
+  "seo"
   "supabase-postgres-best-practices"
   "database-migration"
   "sqlalchemy-alembic-expert-best-practices-code-review"
+  "vercel-composition-patterns"
+  "web-quality-audit"
+  "websocket-engineer"
   "brandkit"
   "design-taste-frontend"
   "design-taste-frontend-v1"
@@ -226,19 +251,10 @@ else
   missing=0
   for name in "${PUBLIC_SKILL_NAMES[@]}"; do
     source_dir="$AGENTS_SKILLS_DIR/$name"
-    destination="$TARGET/$name"
 
     if [ ! -f "$source_dir/SKILL.md" ]; then
       echo "Missing public skill after install: $source_dir/SKILL.md" >&2
       missing=1
-      continue
-    fi
-
-    if command -v rsync >/dev/null 2>&1; then
-      rsync -a --delete "$source_dir/" "$destination/"
-    else
-      rm -rf "$destination"
-      cp -R "$source_dir" "$destination"
     fi
   done
 
@@ -246,7 +262,8 @@ else
     exit 1
   fi
 
-  echo "Installed public npx skills from $AGENTS_SKILLS_DIR to $TARGET"
+  echo "Verified public npx skills in $AGENTS_SKILLS_DIR"
+  echo "Codex discovers the universal agents skill root directly; public skills were not copied to $TARGET"
 fi
 
 echo "Override with TARGET_SKILLS_DIR=/path/to/skills bash scripts/install-skills.sh"
