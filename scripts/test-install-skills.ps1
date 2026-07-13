@@ -12,6 +12,7 @@ $environmentNames = @(
     "AGENTS_SKILLS_DIR",
     "SKIP_PLUGIN_CHECKS",
     "SKIP_PUBLIC_SKILLS",
+    "PUBLIC_SKILLS_AGENT",
     "NPX_CALL_LOG"
 )
 $originalEnvironment = @{}
@@ -105,6 +106,11 @@ try {
         -Message "Expected repo-managed custom skills to be installed"
     Assert-Test -Condition ((Test-Path $env:NPX_CALL_LOG) -and ((Get-Item $env:NPX_CALL_LOG).Length -gt 0)) `
         -Message "Expected normal mode to invoke npx"
+    $npxCalls = @(Get-Content -LiteralPath $env:NPX_CALL_LOG)
+    Assert-Test -Condition (-not (($npxCalls | Where-Object { $_ -match '(^| )--all( |$)' }))) `
+        -Message "Expected installer not to use --all because it targets every agent"
+    Assert-Test -Condition (($npxCalls | Where-Object { $_ -notmatch '(^| )--agent codex( |$)' }).Count -eq 0) `
+        -Message "Expected every npx install call to target the Codex agent"
 
     $skipTarget = Join-Path $tempRoot ".codex-skip\skills"
     New-Item -ItemType Directory -Path $skipTarget -Force | Out-Null
@@ -113,6 +119,7 @@ try {
     $env:CODEX_HOME = Join-Path $tempRoot ".codex-skip"
     $env:TARGET_SKILLS_DIR = $skipTarget
     $env:SKIP_PUBLIC_SKILLS = "1"
+    $env:PUBLIC_SKILLS_AGENT = $null
     $env:NPX_CALL_LOG = Join-Path $tempRoot "npx-skip.log"
 
     & (Join-Path $PSScriptRoot "install-skills.ps1") | Out-Null

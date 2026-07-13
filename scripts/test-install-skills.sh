@@ -73,6 +73,16 @@ if [ ! -s "$TMP_ROOT/npx.log" ]; then
   exit 1
 fi
 
+if grep -Eq '(^| )--all( |$)' "$TMP_ROOT/npx.log"; then
+  echo "Expected installer not to use --all because it targets every agent" >&2
+  exit 1
+fi
+
+if grep -Evq '(^| )--agent codex( |$)' "$TMP_ROOT/npx.log"; then
+  echo "Expected every npx install call to target the Codex agent" >&2
+  exit 1
+fi
+
 SKIP_TARGET="$TMP_ROOT/.codex-skip/skills"
 mkdir -p "$SKIP_TARGET"
 write_skill "$SKIP_TARGET" "find-skills" "legacy mirror"

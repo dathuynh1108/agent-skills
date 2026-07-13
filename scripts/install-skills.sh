@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
 TARGET="${TARGET_SKILLS_DIR:-$CODEX_HOME_DIR/skills}"
 AGENTS_SKILLS_DIR="${AGENTS_SKILLS_DIR:-$HOME/.agents/skills}"
+PUBLIC_SKILLS_AGENT="${PUBLIC_SKILLS_AGENT:-codex}"
 
 REQUIRED_CODEX_PLUGINS=(
   "codex-security"
@@ -240,12 +241,12 @@ else
 
   for source in "${PUBLIC_SKILL_SOURCES[@]}"; do
     echo "Installing public skills from $source"
-    npx --yes skills add "$source" -g -y
+    npx --yes skills add "$source" -g -y --agent "$PUBLIC_SKILLS_AGENT"
   done
 
   for source in "${PUBLIC_SKILL_ALL_SOURCES[@]}"; do
     echo "Installing all public skills from $source"
-    npx --yes skills add "$source" --all -g -y
+    npx --yes skills add "$source" --skill '*' --agent "$PUBLIC_SKILLS_AGENT" -g -y
   done
 
   missing=0
@@ -267,4 +268,5 @@ else
 fi
 
 echo "Override with TARGET_SKILLS_DIR=/path/to/skills bash scripts/install-skills.sh"
+echo "Set PUBLIC_SKILLS_AGENT=codex to change the public npx skill agent target."
 echo "Set SKIP_PUBLIC_SKILLS=1 to install only repo-managed custom skills."

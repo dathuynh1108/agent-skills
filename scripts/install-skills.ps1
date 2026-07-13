@@ -4,6 +4,7 @@ $root = Split-Path -Parent $PSScriptRoot
 $codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME ".codex" }
 $target = if ($env:TARGET_SKILLS_DIR) { $env:TARGET_SKILLS_DIR } else { Join-Path $codexHome "skills" }
 $agentsSkillsDir = if ($env:AGENTS_SKILLS_DIR) { $env:AGENTS_SKILLS_DIR } else { Join-Path $HOME ".agents\skills" }
+$publicSkillsAgent = if ($env:PUBLIC_SKILLS_AGENT) { $env:PUBLIC_SKILLS_AGENT } else { "codex" }
 
 $requiredCodexPlugins = @(
     "codex-security"
@@ -265,7 +266,7 @@ if ($env:SKIP_PUBLIC_SKILLS -eq "1") {
 
     foreach ($publicSource in $publicSkillSources) {
         Write-Output "Installing public skills from $publicSource"
-        & npx --yes skills add $publicSource -g -y
+        & npx --yes skills add $publicSource -g -y --agent $publicSkillsAgent
         if ($LASTEXITCODE -ne 0) {
             throw "npx skills add failed for $publicSource"
         }
@@ -273,9 +274,9 @@ if ($env:SKIP_PUBLIC_SKILLS -eq "1") {
 
     foreach ($publicSource in $publicSkillAllSources) {
         Write-Output "Installing all public skills from $publicSource"
-        & npx --yes skills add $publicSource --all -g -y
+        & npx --yes skills add $publicSource --skill "*" --agent $publicSkillsAgent -g -y
         if ($LASTEXITCODE -ne 0) {
-            throw "npx skills add --all failed for $publicSource"
+            throw "npx skills add --skill * failed for $publicSource"
         }
     }
 
@@ -292,4 +293,5 @@ if ($env:SKIP_PUBLIC_SKILLS -eq "1") {
 }
 
 Write-Output "Override with `$env:TARGET_SKILLS_DIR='C:\path\to\skills'; .\scripts\install-skills.ps1"
+Write-Output "Set `$env:PUBLIC_SKILLS_AGENT='codex' to change the public npx skill agent target."
 Write-Output "Set `$env:SKIP_PUBLIC_SKILLS='1' to install only repo-managed custom skills."
