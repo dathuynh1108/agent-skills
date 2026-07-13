@@ -61,6 +61,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Use `$gitnexus-pdg-query` for GitNexus PDG control/data-dependence questions, guard reasoning, and `pdg_query` result interpretation.
 - Use `$gitnexus-taint-analysis` for GitNexus CFG/taint/PDG subsystem work and source-to-sink data-flow analysis.
 - Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
+- For skill routing, load the smallest useful set of skills for the task. Avoid stacking overlapping skills when one skill plus direct source inspection is enough; add more skills only when they materially improve correctness, domain coverage, validation, or risk control.
 - For DB/MCP SQL tasks, verify actual database, table, and column shape before writing SQL; if MCP can inspect but cannot export, provide a `psql \copy (...)` query.
 - Data-loader, crawler, ETL, and normal query/runtime paths must verify required schema and fail visibly when tables, columns, or indexes are missing; do not lazily create, alter, migrate, index, or backfill schema during normal reads/writes. Schema changes must go through explicit migrations or approved one-off migration scripts.
 - After a successful commit in a GitNexus-indexed repo, use `$gitnexus-cli` to reindex before final handoff. If reindexing is unavailable or fails, report the exact command/result and remaining freshness risk.
@@ -74,6 +75,7 @@ Global bootstrap for Codex work. Keep this file action-oriented: rules, command 
 - Stop and ask when ambiguity would make the change risky.
 - Define success as observable checks, not "looks done".
 - For multi-step work, keep a short plan where each step has a verification path.
+- Keep plans, status updates, and final reports compact: include decisions, changed files, checks, risks, and next action when useful; do not restate broad rules or skill guidance.
 - Every changed line should trace back to the user's request.
 
 ## 3. Command Discovery
@@ -98,6 +100,7 @@ Before editing, identify the repo's:
 - Inspect the exact source path involved, not only docs or memory.
 - Locate the owner of the behavior: API/presentation, application/use case, domain, infrastructure, worker/job, external client, config, or deployment.
 - Trace upstream callers and downstream effects when changing shared behavior.
+- Keep architecture boundary-driven: domain/application rules should not leak into framework, DB, HTTP, queue, cache, or SDK glue; adapters should map external objects at the edge.
 - For complex changes, state affected modules and validation plan before editing.
 - Do not run DB init, migrations, destructive DB operations, external writes, deploys, or rollbacks unless the user explicitly asks.
 
@@ -107,6 +110,8 @@ Before editing, identify the repo's:
 - Keep business rules in the owning layer used by the repo.
 - Implement the minimum code that solves the requested behavior.
 - Do not add speculative features, flexibility, configurability, or abstractions.
+- Prefer boring, direct code with local reasoning. Avoid premature generic frameworks, pattern layers, option plumbing, and abstractions built for only one current use case.
+- Add an abstraction only when it removes real duplication, protects a real boundary, improves testability in a meaningful way, or matches an established repo pattern.
 - Do not improve adjacent code, comments, formatting, or dead code unless required.
 - Remove only imports, variables, functions, and files made unused by your own change.
 - Validate inputs at boundaries.
@@ -168,7 +173,7 @@ Address concrete findings. Ignore style-only feedback unless it hides real risk.
 - Do not present memory-derived facts as confirmed-current unless verified in the current turn.
 - Write persistent memory only when the user explicitly asks; add a small note under `~/.codex/memories/extensions/ad_hoc/notes/` instead of editing memory indexes directly.
 - For long-running work, keep current focus, assumptions, and checklist explicit in the thread.
-- After context compaction or resume, reconstruct the task from the newest user request, compacted summary, memory summary, and live repo state.
+- After context compaction or resume, reconstruct the task from the newest user request, compacted summary, memory summary, and live repo state. Keep only task-relevant facts, verify cheap live source, and continue from the current repo state instead of restarting.
 
 ## 10. Repository Addendum Template
 
