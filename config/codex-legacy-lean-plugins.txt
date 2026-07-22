@@ -1,0 +1,18 @@
+# Plugins disabled by the retired lean profile. Used only for one-time migration.
+atlassian-rovo@openai-curated
+browser@openai-bundled
+build-web-apps@openai-curated
+chrome@openai-bundled
+coderabbit@openai-curated
+computer-use@openai-bundled
+documents@openai-primary-runtime
+figma@openai-curated
+gmail@openai-curated
+hugging-face@openai-curated
+openai-developers@openai-curated
+pdf@openai-primary-runtime
+presentations@openai-primary-runtime
+sites@openai-bundled
+spreadsheets@openai-primary-runtime
+template-creator@openai-primary-runtime
+visualize@openai-bundled

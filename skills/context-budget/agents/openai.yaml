@@ -1,0 +1,4 @@
+interface:
+  display_name: "Context Budget"
+  short_description: "Focus retrieval without reducing model capability"
+  default_prompt: "Use $context-budget to focus repository retrieval while preserving the model full context and capabilities."

@@ -1,6 +1,6 @@
 # Codex Agent Skills Backup
 
-Backup repo for personal Codex bootstrap files and custom skills.
+Shared iNexus Codex bootstrap, custom skills, full-context defaults, and sync scripts.
 
 ## Contents
 
@@ -24,13 +24,18 @@ Backup repo for personal Codex bootstrap files and custom skills.
 - `skills/deep-learning-production`: production DL training/evaluation/inference, GPU performance, checkpointing, and deployment.
 - `skills/mlops-data-pipeline-quality`: data/feature pipelines, data quality, train/serve skew, labels, backfills, lineage, and monitoring.
 - `skills/security-privacy-review`: defensive security/privacy review for backend, API, data, ML, logging, auth, secrets, and dependencies.
+- `skills/context-budget`: focused, layered retrieval and checkpoint discipline without reducing model capability.
 - `scripts/install-skills.ps1`: install repo-managed skills into Windows `%USERPROFILE%\.codex\skills` or `TARGET_SKILLS_DIR`, and approved public skills into `%USERPROFILE%\.agents\skills`.
 - `scripts/install-skills.sh`: install repo-managed skills into macOS/Linux `~/.codex/skills` or `TARGET_SKILLS_DIR`, and approved public skills into `~/.agents/skills`.
 - `scripts/test-install-skills.ps1`: verify the same public/custom skill isolation behavior on Windows.
 - `scripts/test-install-skills.sh`: verify public skills remain in the universal agents root and do not overwrite Codex-local custom skills.
+- `scripts/test-sync-codex.ps1` / `scripts/test-sync-codex.sh`: verify complete sync, config preservation, legacy-profile migration, and idempotency.
 - `scripts/validate-skills.ps1`: validate skill structure on Windows and run Codex `quick_validate.py` when available.
 - `scripts/validate-skills.sh`: validate skill structure on macOS/Linux and run Codex `quick_validate.py` when available.
 - `hooks/hooks.json`: optional Codex hook config for final scope checks.
+- `config/codex-context-root.toml`: shared non-secret maximum context-window setting.
+- `config/codex-legacy-lean-plugins.txt`: one-time migration list used to undo the retired lean profile without changing unrelated plugin state.
+- `scripts/sync-codex.sh` / `scripts/sync-codex.ps1`: complete source-to-runtime sync for AGENTS, hooks, custom skills, and context config.
 
 Installed or bundled skills are intentionally excluded. Do not add `.system`,
 `codex-primary-runtime`, plugin-cache skills, or skills installed from curated
@@ -79,7 +84,22 @@ Codex Security required workflows include security scans, diff scans, deep scans
 threat modeling, finding discovery, validation, attack-path analysis, finding
 triage, finding fixes, and issue/advisory tracking.
 
-## Restore
+## Context Policy
+
+Codex keeps every installed skill and plugin available. Context efficiency comes
+from the compact global prompt and the `context-budget` retrieval workflow, not
+from hiding capabilities or truncating tool results.
+
+The shared config pins `model_context_window = 272000`, the maximum advertised by
+the shared GPT-5.6-Sol Codex model catalog. It deliberately does not set
+`tool_output_token_limit`, `model_auto_compact_token_limit`, or
+`project_doc_max_bytes`.
+
+The sync scripts automatically remove the retired lean skill catalog. Only when
+that legacy marker is present, they re-enable plugins previously managed by the
+lean profile; later syncs preserve all plugin settings unchanged.
+
+## Restore Or Sync
 
 Restore requires Node.js/npm for the public `npx skills` installs. Set
 `SKIP_PUBLIC_SKILLS=1` if you only want the repo-managed custom skills.
@@ -94,18 +114,19 @@ preserve any divergent local override.
 From a fresh Windows machine, run in PowerShell from the repo root:
 
 ```powershell
-Copy-Item .\AGENTS.md "$HOME\.codex\AGENTS.md" -Force
-.\scripts\install-skills.ps1
-Copy-Item .\hooks\hooks.json "$HOME\.codex\hooks.json" -Force
+.\scripts\sync-codex.ps1
 ```
 
 From a fresh macOS/Linux machine, run from the repo root:
 
 ```bash
-mkdir -p ~/.codex/skills
-cp AGENTS.md ~/.codex/AGENTS.md
-./scripts/install-skills.sh
-cp hooks/hooks.json ~/.codex/hooks.json
+./scripts/sync-codex.sh
+```
+
+Fast sync without refreshing public packages:
+
+```bash
+SKIP_PUBLIC_SKILLS=1 ./scripts/sync-codex.sh
 ```
 
 ## Sync From Local Codex
@@ -133,6 +154,7 @@ rsync -a --delete ~/.codex/skills/ml-system-design/ ./skills/ml-system-design/
 rsync -a --delete ~/.codex/skills/deep-learning-production/ ./skills/deep-learning-production/
 rsync -a --delete ~/.codex/skills/mlops-data-pipeline-quality/ ./skills/mlops-data-pipeline-quality/
 rsync -a --delete ~/.codex/skills/security-privacy-review/ ./skills/security-privacy-review/
+rsync -a --delete ~/.codex/skills/context-budget/ ./skills/context-budget/
 cp ~/.codex/hooks.json ./hooks/hooks.json
 ```
 
@@ -144,6 +166,7 @@ Then validate before committing on Windows:
 
 ```powershell
 .\scripts\test-install-skills.ps1
+.\scripts\test-sync-codex.ps1
 .\scripts\validate-skills.ps1
 ```
 
@@ -151,5 +174,6 @@ Or on macOS/Linux:
 
 ```bash
 ./scripts/test-install-skills.sh
+./scripts/test-sync-codex.sh
 ./scripts/validate-skills.sh
 ```

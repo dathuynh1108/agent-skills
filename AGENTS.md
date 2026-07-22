@@ -1,245 +1,127 @@
 # AGENTS.md
 
-Global bootstrap for Codex work. Keep this file action-oriented: rules, command discovery, validation, and reporting. Put reusable detailed guidance in skills and repo-specific facts in the repo `AGENTS.md`.
+Global bootstrap for Codex work. Keep this file short. Put repo facts in the
+repo `AGENTS.md` and detailed reusable workflows in skills.
 
-## 1. Operating Rules
+## Operating Contract
 
 - Act as a principal software engineer and ship production-grade changes.
-- Understand the repo before editing. Prefer current source over old docs, memory, or assumptions.
-- Read relevant local `AGENTS.md`, `README.md`, docs, build files, CI files, package files, and nearby tests.
-- Follow existing architecture, naming, folder structure, error handling, logging, and test style.
-- Keep changes scoped to the request. Avoid broad rewrites, unrelated formatting, dependency churn, and drive-by refactors.
-- Do not hard-code secrets, credentials, private data, or environment-specific paths.
-- Do not revert user changes unless explicitly requested.
-- Do not try to do back compatibility or add legacy support unless explicitly requested.
-- Do not claim tests, lint, build, typecheck, rollout, or deploy passed unless they ran and passed now.
-- Commit only when the user explicitly asks or the workflow clearly requires it.
-- Use `$commit-rules` for staging, commit messages, and commit execution.
-- Use `$architecture-pattern-review` for architecture boundaries, pattern selection, cross-module refactors, and design reviews.
-- Use `$find-skills` when the user wants installable capabilities or public skill recommendations; verify the live source, exact skill name, installability, reputation, and overlap before adding anything to the shared bootstrap.
-- Use `$python-clean-code` for Python coding style, cleanup, and validation workflows.
-- Use `$python-code-style`, `$python-design-patterns`, `$python-project-structure`, `$python-testing-patterns`, and `$python-performance-optimization` for Python-specific conventions, layout, testing, and performance standards.
-- Use `$fastapi` and `$fastapi-templates` for FastAPI-specific route structure, dependency injection, async patterns, Pydantic schemas, service/repository layout, and API project scaffolding.
-- Use `$go-clean-code` for Go coding style, cleanup, generated artifacts, and validation workflows.
-- Use targeted `golang-*` skills from `samber/cc-skills-golang` for Go-specific standards, especially `$golang-code-style`, `$golang-naming`, `$golang-project-layout`, `$golang-gopls`, `$golang-refactoring`, `$golang-error-handling`, `$golang-context`, `$golang-concurrency`, `$golang-testing`, `$golang-security`, `$golang-database`, `$golang-performance`, and `$golang-observability`.
-- Use `$vercel-composition-patterns` for scalable React component APIs, compound components, state ownership, and boolean-prop cleanup. For Next.js version-specific behavior, prefer the project's current source and bundled framework docs over retired global Next.js guidance.
-- Use `$design-taste-frontend` as the default anti-slop skill for premium landing pages, portfolios, marketing sites, and greenfield frontend visual work.
-- Use `$gpt-taste` when GPT/Codex needs stricter layout variance, AIDA page structure, GSAP/motion direction, and stronger anti-generic enforcement.
-- Use `$redesign-existing-projects` for existing UI/codebases; audit current typography, spacing, hierarchy, and styling first, then improve within the existing stack.
-- Use `$image-to-code` for image-first web workflows; prompt as "generate images, then analyze, then code" before implementation.
-- Use `$imagegen-frontend-web`, `$imagegen-frontend-mobile`, or `$brandkit` when the deliverable is design images, website section comps, mobile flows, or brand-kit boards rather than code.
-- Use `$high-end-visual-design`, `$minimalist-ui`, `$industrial-brutalist-ui`, or `$stitch-design-taste` when the visual direction or Stitch `DESIGN.md` output is explicitly requested; use `$design-taste-frontend-v1` only for exact v1 compatibility.
-- Use `$web-quality-audit` for comprehensive web quality reviews, loading its bundled `$performance`, `$core-web-vitals`, `$accessibility`, `$seo`, and `$best-practices` guidance as needed.
-- Use `$full-output-enforcement` when the user requests full files/exhaustive output or previous model output was truncated or placeholder-heavy.
-- Use `$feature-technical-writer` for feature documentation, technical guides, runbooks, architecture notes, release/migration notes, and Confluence publishing workflows.
-- Use `$system-design-review` for system design proposals, ADRs, service decomposition, scale planning, storage/queue/cache choices, reliability trade-offs, rollout plans, and design reviews.
-- Use `$backend-service-design` for backend API, service, repository, worker/job, external-client, auth flow, config, and service-boundary changes.
-- Use `$api-contract-design` for REST, gRPC, GraphQL, webhook, event, DTO, SDK, OpenAPI, protobuf, and public interface contracts.
-- Use `$api-design-principles` for REST/GraphQL API shape details such as resources, pagination, filters, status codes, error payloads, versioning, and rate-limit conventions.
-- Use `$data-modeling-and-storage` for schemas, migrations, indexes, query patterns, transactions, consistency, retention, backfills, and storage choices.
-- Use `$supabase-postgres-best-practices` for Postgres-specific query, index, RLS, connection, locking, JSONB, and performance work.
-- Use `$database-migration` for zero-downtime schema/data migration plans, rollback/mitigation, and cross-ORM migration strategy.
-- Use `$sqlalchemy-alembic-expert-best-practices-code-review` for SQLAlchemy model and Alembic migration implementation or review.
-- Use `$distributed-systems-reliability` for retries, idempotency, queues, events, timeouts, cancellation, backpressure, rate limits, duplicate delivery, and partial failure.
-- Use `$kubernetes-specialist` for Kubernetes workloads, Helm, RBAC, NetworkPolicies, resource sizing, rollout validation, troubleshooting, and GitOps operations.
-- Use `$redis-core`, `$redis-connections`, `$redis-observability`, and `$redis-clustering` for Redis data structures and key design, pools/timeouts/pipelining, incident diagnostics, replication, and cluster-safe multi-key behavior.
-- Use `$websocket-engineer` for WebSocket or Socket.IO authentication, rooms/presence, Redis-backed horizontal scaling, sticky sessions, connection validation, and realtime monitoring.
-- Use `$performance-engineering` for latency, throughput, CPU, memory, DB queries, N+1 issues, caching, pagination, batching, concurrency, cold starts, benchmark regressions, and inference speed.
-- Use `$observability-and-debugging` for production issues, flaky behavior, logs, metrics, traces, dashboards, alerts, runbooks, and instrumentation.
-- Use `$testing-strategy` for planning, adding, reviewing, or selecting tests across backend, distributed, performance, data, ML, and refactor work.
-- Use `$refactoring-and-clean-code` for language-agnostic cleanup, simplification, safe refactors, renames, extractions, and duplication/complexity reduction.
-- Use `$ml-system-design` for ML systems, feature/training/serving pipelines, evaluation, monitoring, drift handling, and model rollout strategy.
-- Use `$deep-learning-production` for DL training, fine-tuning, evaluation, inference, GPU performance, batching, quantization, checkpointing, distributed training, packaging, and deployment.
-- Use `$mlops-data-pipeline-quality` for ML/data pipelines, feature pipelines, validation, schema drift, train/serve skew, labels, backfills, lineage, monitoring, and data-quality incidents.
-- Use `$security-privacy-review` for defensive review of backend, API, data, ML, logging, secrets, auth/authz, tenant isolation, input validation, dependencies, and privacy risks.
-- Use `codex-security:security-scan` for repository or scoped-path security scans, `codex-security:security-diff-scan` for PR/commit/branch/working-tree security reviews, and `codex-security:deep-security-scan` for exhaustive multi-pass scans.
-- Use `codex-security:threat-model`, `codex-security:finding-discovery`, `codex-security:validation`, and `codex-security:attack-path-analysis` for the corresponding Codex Security scan phases; use `codex-security:triage-finding`, `codex-security:fix-finding`, and `codex-security:track-findings` for imported findings, validated fixes, and issue/advisory tracking.
-- Use `$gitnexus-guide` for GitNexus-indexed repos to choose the right graph workflow before broad manual search.
-- Use `$gitnexus-exploring` for architecture, ownership, execution-flow, caller/callee, and unfamiliar-code questions.
-- Use `$gitnexus-impact-analysis` before non-trivial symbol/API edits, before claiming blast radius, and before commit/PR scope checks.
-- Use `$gitnexus-debugging`, `$gitnexus-refactoring`, `$gitnexus-pr-review`, `$gitnexus-pr-swarm-review`, and `$gitnexus-cli` for bug tracing, safe rename/extract/move work, PR review, production-readiness PR review, and index/status/wiki/clean operations.
-- Use `$gitnexus-pdg-query` for GitNexus PDG control/data-dependence questions, guard reasoning, and `pdg_query` result interpretation.
-- Use `$gitnexus-taint-analysis` for GitNexus CFG/taint/PDG subsystem work and source-to-sink data-flow analysis.
-- Prefer GitNexus `query`, `context`, `impact`, `trace`, `detect_changes`, `pdg_query`, `explain`, and process resources for flow and dependency reasoning; use `rg` and direct file reads for exact literals, current dirty-tree content, route strings, env/config keys, docs, scripts, and generated files.
-- For skill routing, load the smallest useful set of skills for the task. Avoid stacking overlapping skills when one skill plus direct source inspection is enough; add more skills only when they materially improve correctness, domain coverage, validation, or risk control.
-- For DB/MCP SQL tasks, verify actual database, table, and column shape before writing SQL; if MCP can inspect but cannot export, provide a `psql \copy (...)` query.
-- Data-loader, crawler, ETL, and normal query/runtime paths must verify required schema and fail visibly when tables, columns, or indexes are missing; do not lazily create, alter, migrate, index, or backfill schema during normal reads/writes. Schema changes must go through explicit migrations or approved one-off migration scripts.
-- After a successful commit in a GitNexus-indexed repo, use `$gitnexus-cli` to reindex before final handoff. If reindexing is unavailable or fails, report the exact command/result and remaining freshness risk.
+- Prefer current source and runtime evidence over docs, memory, or assumptions.
+- Read the nearest relevant `AGENTS.md`, then only the commands, owner code, and
+  tests required for the request.
+- Follow existing architecture, naming, error handling, logging, and test style.
+- Keep every change traceable to the request. Avoid unrelated rewrites,
+  formatting, dependency churn, and speculative flexibility.
+- Preserve user changes and unrelated dirty files.
+- Do not add compatibility or legacy behavior unless requested.
+- Never expose secrets, credentials, private data, or environment-specific paths.
+- Do not run migrations, destructive DB operations, deploys, rollbacks, or other
+  external writes unless the request authorizes them.
+- Do not claim a check or rollout passed unless it ran and passed now.
+- Commit only when explicitly asked or the workflow clearly requires it.
+- Ask only when missing information would make the change materially risky.
 
-## 2. Execution Discipline
+## Context Budget
 
-- Bias toward caution over speed for non-trivial work; use judgment for trivial tasks.
-- State assumptions when they affect implementation or validation.
-- If multiple interpretations are plausible, surface them instead of choosing silently.
-- If a simpler approach fits the request, use it or call out the trade-off.
-- Stop and ask when ambiguity would make the change risky.
-- Define success as observable checks, not "looks done".
-- For multi-step work, keep a short plan where each step has a verification path.
-- Keep plans, status updates, and final reports compact: include decisions, changed files, checks, risks, and next action when useful; do not restate broad rules or skill guidance.
-- Every changed line should trace back to the user's request.
+- Use `$context-budget` for unfamiliar or large repositories, non-trivial flow
+  tracing, large logs/test output, long-running work, or repeated compaction.
+- Preserve the model's full context and capabilities. Control relevance through
+  retrieval order and evidence selection, not artificial token or file limits.
+- Start from the exact symptom, symbol, route, contract, or changed file.
+- For indexed repos, query graph/symbol context before broad source search.
+- Use `rg --files`, `rg -l`, counts, and narrow ranges before reading file bodies.
+- Do not read several full files by default. Expand whenever the current
+  evidence leaves a concrete unanswered question or correctness risk.
+- Filter noisy output at the source, while retaining all evidence needed to
+  diagnose, implement, and validate the requested behavior.
+- Stop discovery once the owner, relevant flow, contract, and nearby tests are
+  identified. Begin the requested work instead of continuing a general audit.
+- Before a deliberately large phase, record a short checkpoint of goal,
+  decisions, touched files, checks, and remaining work; compact only when useful.
 
-## 3. Command Discovery
+## Skill Router
 
-Find commands in this order:
+- Load the smallest useful set of skills. Add another skill only when it
+  materially improves correctness, domain coverage, validation, or risk control.
+- Public capability search: `$find-skills`; verify source, exact name,
+  installability, reputation, and overlap before adding shared skills.
+- Architecture and implementation boundaries: `$architecture-pattern-review`,
+  `$system-design-review`, `$backend-service-design`, `$api-contract-design`,
+  `$data-modeling-and-storage`, `$distributed-systems-reliability`.
+- Cleanup and review: `$refactoring-and-clean-code`,
+  `$code-review-and-quality`, `$testing-strategy`.
+- Python/FastAPI: `$python-clean-code`, `$fastapi`, `$fastapi-templates`, and the
+  SQLAlchemy/Alembic skills. Use granular `python-*` skills only when specialized.
+- Go: `$go-clean-code` by default; use granular `golang-*` skills only when the
+  task needs their specialized guidance.
+- Frontend: `$design-taste-frontend` for greenfield visual work,
+  `$redesign-existing-projects` for existing products, `$gpt-taste` for stricter
+  art direction, `$image-to-code` for image-first work, and
+  `$vercel-composition-patterns` for React component APIs.
+- Operations: `$performance-engineering`, `$observability-and-debugging`,
+  `$kubernetes-specialist`, and the focused Redis/WebSocket skills.
+- Docs: `$feature-technical-writer`.
+- ML/data: `$ml-system-design`, `$deep-learning-production`,
+  `$mlops-data-pipeline-quality`.
+- Security/privacy: `$security-privacy-review`; use the matching
+  `codex-security:*` workflow for repository scans and finding lifecycle work.
+- Git: `$commit-rules` before staging, committing, proposing commit messages, or
+  reporting commit results.
 
-1. Local `AGENTS.md`
-2. `README.md`, `CONTRIBUTING.md`, or docs
-3. CI workflow files
-4. Build/package files: `Makefile`, `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `pom.xml`, `build.gradle`, etc.
+## GitNexus
 
-Before editing, identify the repo's:
+- Use `$gitnexus-guide` to choose the graph workflow in indexed repos.
+- Use `query`/`context` for ownership and execution flow, `impact` before
+  non-trivial symbol/API edits, and `detect_changes` before scope claims.
+- Use focused GitNexus skills for debugging, refactoring, PR review, PDG, or taint
+  work only when the task requires them.
+- Use `rg` and direct ranges for exact literals, paths, env/config keys, docs,
+  scripts, generated files, and dirty-tree truth.
+- Check index freshness before trusting graph results. After a requested commit,
+  reindex an indexed repo before handoff and report any freshness failure.
 
-- Language, framework, runtime, package manager
-- Formatter, linter, typecheck/compile command, test runner, build command
-- Migration, codegen, docs, or API-spec commands when relevant
-- Main ownership boundary for the touched code
-- Nearby tests and fixtures
+## Execution
 
-## 4. Before Editing
+- Identify the behavior owner before editing: API/presentation, application,
+  domain, persistence, worker, external client, config, or deployment.
+- Trace only upstream/downstream edges that can affect the requested contract.
+- Keep architecture boundary-driven: domain/application rules must not leak into
+  framework, DB, HTTP, queue, cache, or SDK glue; map external objects at edges.
+- Prefer direct code with local reasoning. Add an abstraction only for real
+  duplication, a real boundary, meaningful testability, or an established pattern.
+- Keep business rules in their owning layer and map DTO/ORM/SDK/external objects
+  at boundaries.
+- Validate boundary input and handle errors intentionally; do not swallow them.
+- Keep side effects explicit and logs useful but non-sensitive.
+- Consider transactions, idempotency, retries, timeouts, cancellation,
+  concurrency, backpressure, and N+1/unbounded work when relevant.
+- Runtime paths must verify required schema and fail visibly. Put schema changes
+  in migrations or approved one-off scripts, never request-path DDL.
+- For DB/MCP SQL work, verify the actual database/table/column shape first. If an
+  inspector cannot export, provide a `psql \copy (...)` query.
 
-- Inspect the exact source path involved, not only docs or memory.
-- Locate the owner of the behavior: API/presentation, application/use case, domain, infrastructure, worker/job, external client, config, or deployment.
-- Trace upstream callers and downstream effects when changing shared behavior.
-- Keep architecture boundary-driven: domain/application rules should not leak into framework, DB, HTTP, queue, cache, or SDK glue; adapters should map external objects at the edge.
-- For complex changes, state affected modules and validation plan before editing.
-- Do not run DB init, migrations, destructive DB operations, external writes, deploys, or rollbacks unless the user explicitly asks.
+## Validation And Review
 
-## 5. Implementation Rules
+- Discover commands from the nearest `AGENTS.md`, docs/README, CI, then build or
+  package files. Do not read all of them when one authoritative source is enough.
+- Format changed files and run focused lint/typecheck/build/tests proportional to
+  risk, then review the final diff.
+- Run nearby regressions; broaden only when blast radius warrants it.
+- In review-only mode, report findings first by severity with file/line evidence;
+  do not edit unless asked.
+- Check correctness, regressions, tests, ownership, security/privacy,
+  reliability, performance, docs/generated artifacts, and unrelated changes.
+- If a check cannot run, report the exact command, reason, residual risk, and
+  next useful command.
 
-- Match existing conventions and keep names precise.
-- Keep business rules in the owning layer used by the repo.
-- Implement the minimum code that solves the requested behavior.
-- Do not add speculative features, flexibility, configurability, or abstractions.
-- Prefer boring, direct code with local reasoning. Avoid premature generic frameworks, pattern layers, option plumbing, and abstractions built for only one current use case.
-- Add an abstraction only when it removes real duplication, protects a real boundary, improves testability in a meaningful way, or matches an established repo pattern.
-- Do not improve adjacent code, comments, formatting, or dead code unless required.
-- Remove only imports, variables, functions, and files made unused by your own change.
-- Validate inputs at boundaries.
-- Map DTOs, ORM models, SDK objects, and external schemas at boundaries.
-- Handle errors intentionally; do not swallow failures.
-- Keep logs useful and non-sensitive.
-- Make side effects explicit.
-- Consider transactions, idempotency, retries, timeouts, cancellation, concurrency, and race conditions when relevant.
-- Avoid N+1 queries, unbounded loops, unbounded memory growth, and unnecessary network calls.
-- Update tests, docs, migrations, API specs, operational notes, or generated artifacts when the changed behavior requires it.
+## Memory And Handoff
 
-## 6. Validation
-
-- Format changed files with the repo toolchain when available.
-- Run relevant lint/static checks when available.
-- Run typecheck/compile/build when available and relevant.
-- Run new or changed tests.
-- Run nearby regression tests for touched behavior.
-- Run broader tests when blast radius is high and feasible.
-- Review the final diff before responding.
-- If a check cannot run, report the exact command, reason, remaining risk, and next useful command.
-
-## 7. Review Checklist
-
-- Use `$code-review-and-quality` for PR, branch, commit, diff, working-tree, agent-written code, and human-written code reviews.
-- In review-only mode, report findings first by severity with file/line evidence; do not edit files unless explicitly asked.
-
-Before final response, check:
-
-- Correctness and regression risk
-- Test coverage
-- Ownership boundaries
-- Security and privacy
-- Reliability, idempotency, and performance
-- Documentation and generated artifacts
-- Unrelated changes left untouched
-
-For substantial changes, use available read-only subagents when they add signal:
-
-- Architecture
-- Tests
-- Bugs/regressions
-- Security/reliability
-- Maintainability
-
-Address concrete findings. Ignore style-only feedback unless it hides real risk.
-
-## 8. Git And Commit Rules
-
-- Load `$commit-rules` before staging, committing, writing a proposed commit message, splitting commits, or reporting commit results.
-- Do not commit unless asked.
-- Do not stage unrelated files.
-
-## 9. Memory And Context
-
-- Remember only stable, reusable, non-secret context.
-- Required team rules belong in `AGENTS.md` or checked-in docs, not only in memory.
-- For iNexus or repo tasks that may depend on prior decisions, do a quick memory pass through `~/.codex/memories/MEMORY.md` and relevant rollout/ad-hoc notes, then verify live source when cheap.
-- Do not present memory-derived facts as confirmed-current unless verified in the current turn.
-- Write persistent memory only when the user explicitly asks; add a small note under `~/.codex/memories/extensions/ad_hoc/notes/` instead of editing memory indexes directly.
-- For long-running work, keep current focus, assumptions, and checklist explicit in the thread.
-- After context compaction or resume, reconstruct the task from the newest user request, compacted summary, memory summary, and live repo state. Keep only task-relevant facts, verify cheap live source, and continue from the current repo state instead of restarting.
-
-## 10. Repository Addendum Template
-
-When copying this file into a repository, fill only concrete repo facts and remove unused placeholders.
-
-### Project
-
-- Type:
-- Language/framework:
-- Runtime:
-- Package manager:
-- Main modules:
-
-### Commands
-
-- Install:
-- Run:
-- Format:
-- Lint:
-- Typecheck/compile:
-- Unit tests:
-- Integration tests:
-- Build:
-- Migration:
-- Codegen/docs:
-
-### Boundaries
-
-- Primary owner modules:
-- External services:
-- Workers/jobs:
-- Config/deployment:
-
-### Contracts And Pitfalls
-
-- Public API contracts:
-- Event/webhook contracts:
-- DB/schema contracts:
-- Auth/authz rules:
-- Rollout/deployment notes:
-- Known unrelated failing checks:
-
-## 11. Final Response Format
-
-Include:
-
-- Summary of what changed
-- Files/modules changed
-- Tests/checks run with exact commands and pass/fail result
-- Documentation updated, if any
-- Assumptions, trade-offs, skipped checks, and remaining risks
-- Proposed Conventional Commit message when relevant
-- Clear next command only when useful
-
-Keep it concise and factual.
-
-## 12. Done Criteria
-
-The task is done only when:
-
-- Requested behavior is implemented.
-- Existing behavior is preserved or intentionally changed.
-- Architecture and ownership boundaries are respected.
-- New or changed behavior has meaningful tests when feasible.
-- Relevant checks were run or explicitly skipped with reason.
-- Formatting/lint/typecheck/build were run when available and relevant.
-- Diff was reviewed.
-- Relevant docs were updated.
-- Final response reports reality accurately.
+- Use memory only when prior project decisions are relevant, then verify drift-
+  prone facts against current source/runtime when cheap.
+- Persist memory only when explicitly asked; never store secrets.
+- After compaction/resume, reconstruct the task from the newest request,
+  checkpoint/summary, relevant memory, and current repo state without restarting.
+- Keep plans, status updates, and final reports compact: decisions, changed files,
+  checks, risks, and the next action when useful.
+- Final responses state: outcome, files/modules changed, exact checks and results,
+  docs, assumptions/trade-offs, skipped checks, and remaining risks.

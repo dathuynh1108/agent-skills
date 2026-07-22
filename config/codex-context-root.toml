@@ -1,0 +1,4 @@
+# BEGIN agent-skills context defaults
+# Pin the full context window advertised by the shared GPT-5.6-Sol catalog.
+model_context_window = 272000
+# END agent-skills context defaults
