@@ -24,7 +24,6 @@ Shared iNexus Codex bootstrap, custom skills, full-context defaults, and sync sc
 - `skills/deep-learning-production`: production DL training/evaluation/inference, GPU performance, checkpointing, and deployment.
 - `skills/mlops-data-pipeline-quality`: data/feature pipelines, data quality, train/serve skew, labels, backfills, lineage, and monitoring.
 - `skills/security-privacy-review`: defensive security/privacy review for backend, API, data, ML, logging, auth, secrets, and dependencies.
-- `skills/context-budget`: focused, layered retrieval and checkpoint discipline without reducing model capability.
 - `scripts/install-skills.ps1`: install repo-managed skills into Windows `%USERPROFILE%\.codex\skills` or `TARGET_SKILLS_DIR`, and approved public skills into `%USERPROFILE%\.agents\skills`.
 - `scripts/install-skills.sh`: install repo-managed skills into macOS/Linux `~/.codex/skills` or `TARGET_SKILLS_DIR`, and approved public skills into `~/.agents/skills`.
 - `scripts/test-install-skills.ps1`: verify the same public/custom skill isolation behavior on Windows.
@@ -87,8 +86,8 @@ triage, finding fixes, and issue/advisory tracking.
 ## Context Policy
 
 Codex keeps every installed skill and plugin available. Context efficiency comes
-from the compact global prompt and the `context-budget` retrieval workflow, not
-from hiding capabilities or truncating tool results.
+from the compact global prompt and its layered retrieval policy, not from hiding
+capabilities or truncating tool results.
 
 The shared config pins `model_context_window = 272000`, the maximum advertised by
 the shared GPT-5.6-Sol Codex model catalog. It deliberately does not set
@@ -154,7 +153,6 @@ rsync -a --delete ~/.codex/skills/ml-system-design/ ./skills/ml-system-design/
 rsync -a --delete ~/.codex/skills/deep-learning-production/ ./skills/deep-learning-production/
 rsync -a --delete ~/.codex/skills/mlops-data-pipeline-quality/ ./skills/mlops-data-pipeline-quality/
 rsync -a --delete ~/.codex/skills/security-privacy-review/ ./skills/security-privacy-review/
-rsync -a --delete ~/.codex/skills/context-budget/ ./skills/context-budget/
 cp ~/.codex/hooks.json ./hooks/hooks.json
 ```
 

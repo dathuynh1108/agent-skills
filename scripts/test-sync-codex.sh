@@ -46,7 +46,7 @@ run_sync
 
 cmp "$ROOT/AGENTS.md" "$TMP_ROOT/.codex/AGENTS.md"
 cmp "$ROOT/hooks/hooks.json" "$TMP_ROOT/.codex/hooks.json"
-test -f "$TMP_ROOT/.codex/skills/context-budget/SKILL.md"
+test ! -e "$TMP_ROOT/.codex/skills/context-budget"
 grep -q '^model = "test-model"$' "$TMP_ROOT/.codex/config.toml"
 test "$(grep -c '^model_context_window = 272000$' "$TMP_ROOT/.codex/config.toml")" -eq 1
 grep -q '^\[profiles.deep\]$' "$TMP_ROOT/.codex/config.toml"

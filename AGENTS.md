@@ -23,13 +23,14 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
 
 ## Context Budget
 
-- Use `$context-budget` for unfamiliar or large repositories, non-trivial flow
-  tracing, large logs/test output, long-running work, or repeated compaction.
 - Preserve the model's full context and capabilities. Control relevance through
   retrieval order and evidence selection, not artificial token or file limits.
 - Start from the exact symptom, symbol, route, contract, or changed file.
 - For indexed repos, query graph/symbol context before broad source search.
-- Use `rg --files`, `rg -l`, counts, and narrow ranges before reading file bodies.
+- Use `rg`/`rg --files` for discovery and exact text search. Use `sed` only for
+  targeted range extraction or transformation after the file is known.
+- Use `ast-grep` for syntax-aware structural search/rewrite and `jq`/`yq` for
+  JSON/YAML queries when textual matching would be ambiguous or fragile.
 - Do not read several full files by default. Expand whenever the current
   evidence leaves a concrete unanswered question or correctness risk.
 - Filter noisy output at the source, while retaining all evidence needed to
@@ -106,6 +107,9 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
   package files. Do not read all of them when one authoritative source is enough.
 - Format changed files and run focused lint/typecheck/build/tests proportional to
   risk, then review the final diff.
+- For changed shell scripts, run syntax checks plus `shellcheck` and `shfmt`
+  when available; use `gitleaks` for secret-focused scans and `hyperfine` for
+  benchmark claims rather than as unconditional checks.
 - Run nearby regressions; broaden only when blast radius warrants it.
 - In review-only mode, report findings first by severity with file/line evidence;
   do not edit unless asked.

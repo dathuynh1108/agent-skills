@@ -87,8 +87,8 @@ enabled = false
         -Message "Expected AGENTS.md to be synced"
     Assert-Test -Condition ((Get-FileHash (Join-Path $root "hooks\hooks.json")).Hash -eq (Get-FileHash (Join-Path $codexHome "hooks.json")).Hash) `
         -Message "Expected hooks.json to be synced"
-    Assert-Test -Condition (Test-Path (Join-Path $codexHome "skills\context-budget\SKILL.md")) `
-        -Message "Expected context-budget skill to be synced"
+    Assert-Test -Condition (-not (Test-Path (Join-Path $codexHome "skills\context-budget"))) `
+        -Message "Expected context-budget to remain folded into AGENTS.md instead of syncing as a skill"
 
     $firstConfig = Get-Content -Raw -LiteralPath $configFile
     Assert-Test -Condition $firstConfig.Contains('model = "test-model"') -Message "Expected existing model config to survive"
