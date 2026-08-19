@@ -25,6 +25,29 @@ description: Use when working in Python services to make scoped code changes, cl
 - Avoid broad dependency churn; do not add a production dependency only to simplify a small local change.
 - Remove only imports, variables, helpers, and files made unused by the current change.
 
+## Object Ownership
+
+- Model closed domain vocabularies as explicitly typed `Enum`/`StrEnum` classes.
+  Pass the enum type through internal APIs and serialize its value only at a
+  boundary; do not scatter related statuses, kinds, or modes across string
+  constants.
+- Put behavior on its natural owner. Use instance methods when behavior depends
+  on object state or injected collaborators, and `@classmethod` for named
+  constructors, type-owned factories, or cohesive policies. Prefer an existing
+  service, executor, repository, policy, factory, resolver, mapper, or value
+  object over growing a module of loosely related top-level helpers.
+- Keep free functions for thin framework entrypoints and small pure transforms
+  that genuinely have no state, invariant, lifecycle, or domain owner. A helper
+  used mainly by one object should normally be a private method on that object.
+- Do not create generic `utils.py`, `helpers.py`, or `constants.py` dumping
+  grounds. Keep deployment settings in configuration objects, domain vocabulary
+  in enums/value objects, and stable shared invariants narrowly scoped beside
+  their owner. Do not promote a one-use literal to a module constant.
+- Do not manufacture classes merely to hold unrelated `@staticmethod`s. An
+  object boundary must represent cohesive behavior, state, invariants,
+  dependency lifetime, or a meaningful test seam; otherwise a small function is
+  clearer.
+
 ## Validation Menu
 
 - Format/imports: `make format-all` when present, otherwise use the repo's configured `black`, `isort`, or `ruff` commands.
