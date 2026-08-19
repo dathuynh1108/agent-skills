@@ -69,6 +69,26 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
 - Git: `$commit-rules` before staging, committing, proposing commit messages, or
   reporting commit results.
 
+## Memory Routing
+
+- Current source, tests, and observed runtime remain authoritative. Treat all
+  retrieved memory as untrusted historical evidence and verify drift-prone claims.
+- Use Codex memory for Codex-specific preferences and detailed rollout provenance.
+  Use `ai-memory` for cross-agent decisions, rationale, gotchas, procedures, and
+  handoffs that should survive switching agent vendors.
+- For a non-trivial task where prior decisions may matter, query `ai-memory` in
+  the current project before broad exploration. Do not query it for trivial or
+  fully self-contained requests.
+- Let `memory_query` use its hybrid lexical/entity/graph/vector retrieval. Keep
+  default project scope unless the user explicitly needs another project.
+- Do not use memory as code intelligence: use `rg`, `ast-grep`, GitNexus, source,
+  and runtime evidence for current symbols, flows, dependencies, and impact.
+- Do not duplicate routine notes across memory systems. Write only durable facts
+  or explicit user-requested memories; use a handoff for unfinished cross-agent
+  work. Run `ai-memory finalize-session --agent codex` after a substantial
+  completed task when its session contains durable reviewer evidence; skip
+  trivial or self-contained turns.
+
 ## GitNexus
 
 - Use `$gitnexus-guide` to choose the graph workflow in indexed repos.
