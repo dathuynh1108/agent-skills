@@ -69,6 +69,11 @@ skills are not mirrored into the Codex-local custom skills directory:
 - `https://github.com/samber/cc-skills-golang` full bundle with `--all`
 - `https://github.com/Leonxlnx/taste-skill` full bundle
 
+The current GitNexus bundle includes the focused graph skills plus
+`gitnexus-plan`, `gitnexus-work`, `gitnexus-review`, and the gated
+`gitnexus-lfg` end-to-end workflow. The installer verifies these current names
+and no longer retains the retired `gitnexus-pr-review` alias.
+
 Vercel retired the global `next-best-practices` skill in favor of
 version-matched Next.js bundled docs and generated project agent guidance, so
 the bootstrap intentionally does not pin the stale skill.

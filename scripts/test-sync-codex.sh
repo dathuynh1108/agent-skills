@@ -46,6 +46,8 @@ run_sync
 
 cmp "$ROOT/AGENTS.md" "$TMP_ROOT/.codex/AGENTS.md"
 cmp "$ROOT/hooks/hooks.json" "$TMP_ROOT/.codex/hooks.json"
+grep -q 'ai-memory finalize-session --agent codex' "$TMP_ROOT/.codex/AGENTS.md"
+grep -q 'static HTTP MCP registration' "$TMP_ROOT/.codex/AGENTS.md"
 test ! -e "$TMP_ROOT/.codex/skills/context-budget"
 grep -q '^model = "test-model"$' "$TMP_ROOT/.codex/config.toml"
 test "$(grep -c '^model_context_window = 272000$' "$TMP_ROOT/.codex/config.toml")" -eq 1
