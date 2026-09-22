@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.local/bin/ai-memory\" hook --event session-start --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
+            "command": "\"$HOME/Applications/ai-memory/ai-memory\" --data-dir \"$HOME/Library/Application Support/ai-memory\" hook --event session-start --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.local/bin/ai-memory\" hook --event user-prompt-submit --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
+            "command": "\"$HOME/Applications/ai-memory/ai-memory\" --data-dir \"$HOME/Library/Application Support/ai-memory\" hook --event user-prompt-submit --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
           }
         ]
       }
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.local/bin/ai-memory\" hook --event pre-tool-use --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
+            "command": "\"$HOME/Applications/ai-memory/ai-memory\" --data-dir \"$HOME/Library/Application Support/ai-memory\" hook --event pre-tool-use --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
           }
         ]
       }
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.local/bin/ai-memory\" hook --event post-tool-use --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
+            "command": "\"$HOME/Applications/ai-memory/ai-memory\" --data-dir \"$HOME/Library/Application Support/ai-memory\" hook --event post-tool-use --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
           }
         ]
       }
@@ -50,7 +50,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.local/bin/ai-memory\" hook --event pre-compact --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
+            "command": "\"$HOME/Applications/ai-memory/ai-memory\" --data-dir \"$HOME/Library/Application Support/ai-memory\" hook --event pre-compact --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
           }
         ]
       }
@@ -61,7 +61,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.local/bin/ai-memory\" hook --event stop --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
+            "command": "\"$HOME/Applications/ai-memory/ai-memory\" --data-dir \"$HOME/Library/Application Support/ai-memory\" hook --event stop --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
           }
         ]
       },
@@ -73,6 +73,17 @@
             "command": "/bin/sh -lc 'root=$(git rev-parse --show-toplevel 2>/dev/null || pwd); cd \"$root\" || exit 0; printf \"\\n[Codex scope guard]\\nrepo: %s\\n\" \"$root\"; printf \"branch: \"; git branch --show-current 2>/dev/null || true; if [ -f .gitnexus/run.cjs ]; then node .gitnexus/run.cjs status || true; fi; printf \"changed files:\\n\"; git status --short; git diff --check || true'",
             "timeout": 30,
             "statusMessage": "Checking repo scope before final response"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/Applications/ai-memory/ai-memory\" --data-dir \"$HOME/Library/Application Support/ai-memory\" hook --event session-end --agent codex --server-url http://127.0.0.1:49374 --project-strategy repo-root"
           }
         ]
       }
