@@ -78,6 +78,12 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
   handoffs that should survive switching agent vendors.
 - Do not use memory as code intelligence: use `rg`, `ast-grep`, GitNexus, source,
   and runtime evidence for current symbols, flows, dependencies, and impact.
+- This Codex Desktop setup uses a static HTTP MCP registration and may run tasks
+  concurrently. Before calling ai-memory from Codex, resolve the nearest
+  `.ai-memory.toml` from the task working directory and pass explicit `workspace`
+  plus `project` (the marker's project override, or the main Git root basename
+  under `repo-root`). Never rely on the process-wide active scope. Do not query
+  project memory from unmarked paths; capture allowlist drops those lifecycle events.
 
 <!-- ai-memory:start -->
 ## Long-term memory (ai-memory)
@@ -175,6 +181,10 @@ start/end HTML-comment markers, without disturbing the rest of the file.
 ## GitNexus
 
 - Use `$gitnexus-guide` to choose the graph workflow in indexed repos.
+- Use `$gitnexus-plan` for implementation-ready planning, `$gitnexus-work` to
+  execute a saved plan or a small bounded task, and `$gitnexus-review` for PR,
+  branch, range, or local-diff review. Use `$gitnexus-lfg` only when the user
+  requests the gated plan -> work -> review pipeline end to end.
 - Use `query`/`context` for ownership and execution flow, `impact` before
   non-trivial symbol/API edits, and `detect_changes` before scope claims.
 - Use focused GitNexus skills for debugging, refactoring, PR review, PDG, or taint
@@ -226,6 +236,15 @@ start/end HTML-comment markers, without disturbing the rest of the file.
 - Use memory only when prior project decisions are relevant, then verify drift-
   prone facts against current source/runtime when cheap.
 - Persist memory only when explicitly asked; never store secrets.
+- Codex has no reliable true session-end hook. When the user explicitly ends the
+  thread, requests a final handoff, or says there will be no further work in the
+  current session, run `ai-memory finalize-session --agent codex` after the last
+  substantive work is complete. Target the exact ai-memory session ID when it is
+  available; if several matching Codex sessions are open and the current one
+  cannot be identified safely, report that instead of guessing. Do not finalize
+  after an ordinary turn, a partial task, a status update, or merely because the
+  Codex `Stop` hook fired. Managed `ai-memory run codex` launches already finalize
+  on process exit and do not need this fallback.
 - After compaction/resume, reconstruct the task from the newest request,
   checkpoint/summary, relevant memory, and current repo state without restarting.
 - Keep plans, status updates, and final reports compact: decisions, changed files,

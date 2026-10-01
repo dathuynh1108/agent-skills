@@ -53,6 +53,18 @@ if [ ! -f "$AGENTS_SKILLS_DIR/find-skills/SKILL.md" ]; then
   exit 1
 fi
 
+for name in gitnexus-plan gitnexus-work gitnexus-review gitnexus-lfg; do
+  if [ ! -f "$AGENTS_SKILLS_DIR/$name/SKILL.md" ]; then
+    echo "Expected current GitNexus workflow skill: $name" >&2
+    exit 1
+  fi
+done
+
+if [ -e "$AGENTS_SKILLS_DIR/gitnexus-pr-review" ]; then
+  echo "Expected retired GitNexus alias to stay removed: gitnexus-pr-review" >&2
+  exit 1
+fi
+
 if ! grep -q '^custom override$' "$TARGET_SKILLS_DIR/redis-core/SKILL.md"; then
   echo "Expected divergent local override to be preserved: redis-core" >&2
   exit 1
