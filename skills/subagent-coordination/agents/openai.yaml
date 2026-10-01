@@ -1,0 +1,4 @@
+interface:
+  display_name: "Subagent Coordination"
+  short_description: "Coordinate agents by cost, scope, and risk"
+  default_prompt: "Use $subagent-coordination to plan this task and delegate independent coding, inspection, and review work with explicit model and reasoning choices."

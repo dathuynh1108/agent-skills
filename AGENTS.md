@@ -46,6 +46,8 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
   materially improves correctness, domain coverage, validation, or risk control.
 - Public capability search: `$find-skills`; verify source, exact name,
   installability, reputation, and overlap before adding shared skills.
+- Subagent work: `$subagent-coordination` before dispatching coding, inspection,
+  or review tasks; reuse the installed Superpowers delegation workflows as needed.
 - Architecture and implementation boundaries: `$architecture-pattern-review`,
   `$system-design-review`, `$backend-service-design`, `$api-contract-design`,
   `$data-modeling-and-storage`, `$distributed-systems-reliability`.
@@ -68,6 +70,24 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
   `codex-security:*` workflow for repository scans and finding lifecycle work.
 - Git: `$commit-rules` before staging, committing, proposing commit messages, or
   reporting commit results.
+
+## Subagent Coordination
+
+- Act as coordinator/planner for substantial parallel work. Delegate bounded easy
+  tasks; keep critical decisions, ownership, and integration with the coordinator.
+- Choose the least costly capable available model, with low effort for mechanical
+  work and low-risk reviews, medium for ordinary coding, high for critical reasoning.
+  Use xhigh or higher only with a task-specific justification.
+- Set both model and reasoning explicitly from the current spawn allowlist. Prefer
+  the user's economy model when available; never silently inherit the main model.
+  Use `fork_turns: "none"` and a self-contained brief by default.
+- Batch tiny similar jobs; delegate only alongside useful independent work. Give
+  each writer exclusive files and each child a no-further-subagents constraint.
+- On quota/model failure, stop the failed route, choose a verified working
+  alternative within the user's constraints or continue locally, and report it.
+  Do not automatically upgrade to a flagship or retry unchanged failures.
+- This user preference governs optional tier defaults in delegation skills; it
+  does not remove necessary verification or change the main model configuration.
 
 ## Memory System Boundary
 
