@@ -8,6 +8,8 @@ Shared iNexus Codex bootstrap, custom skills, full-context defaults, and sync sc
 - `skills/architecture-pattern-review`: custom architecture review workflow.
 - `skills/code-review-and-quality`: custom code review workflow.
 - `skills/commit-rules`: custom commit/staging workflow.
+- `skills/subagent-coordination`: model/effort routing, bounded parallel work,
+  review tiers, and quota recovery; complements installed Superpowers workflows.
 - `skills/python-clean-code`: reusable Python coding style and validation workflow.
 - `skills/go-clean-code`: reusable Go coding style and validation workflow.
 - `skills/feature-technical-writer`: feature docs and Confluence publishing workflow.
@@ -132,6 +134,21 @@ Fast sync without refreshing public packages:
 ```bash
 SKIP_PUBLIC_SKILLS=1 ./scripts/sync-codex.sh
 ```
+
+## Subagent Model Routing
+
+`AGENTS.md` routes delegation through `$subagent-coordination`. The coordinator
+keeps planning and critical decisions, batches small jobs for lighter agents,
+and explicitly selects each child's model, reasoning effort, and isolated context.
+Critical reviews use a stronger tier; routine reviews do not automatically do so.
+Quota failures trigger a supported alternate or local completion, not an automatic
+flagship upgrade. Model names and effort values come from the live spawn allowlist;
+Luna is a preference when available, not a hard-coded dependency.
+
+The existing Bash and PowerShell installers discover the custom skill automatically.
+Run the normal sync command above to install it and refresh global `AGENTS.md`.
+This is instruction-based routing, not a spending cap or a change to the main model.
+It reuses the installed Superpowers plugin instead of adding a duplicate public copy.
 
 ## Sync From Local Codex
 
