@@ -51,6 +51,13 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
 - Architecture and implementation boundaries: `$architecture-pattern-review`,
   `$system-design-review`, `$backend-service-design`, `$api-contract-design`,
   `$data-modeling-and-storage`, `$distributed-systems-reliability`.
+- Backend/API additions: `$nodejs-backend-patterns`,
+  `$microservices-patterns`, `$architecture-patterns`,
+  `$workflow-orchestration-patterns`, `$temporal-python-testing`,
+  `$event-store-design`, `$cqrs-implementation`, `$projection-patterns`,
+  `$saga-orchestration`, `$openapi-spec-generation`, and
+  `$error-handling-patterns` for backend architecture, distributed workflows,
+  event-driven designs, OpenAPI, and explicit error handling.
 - Cleanup and review: `$refactoring-and-clean-code`,
   `$code-review-and-quality`, `$testing-strategy`.
 - Python/FastAPI: `$python-clean-code`, `$fastapi`, `$fastapi-templates`, and the
@@ -60,12 +67,17 @@ repo `AGENTS.md` and detailed reusable workflows in skills.
 - Frontend: `$design-taste-frontend` for greenfield visual work,
   `$redesign-existing-projects` for existing products, `$gpt-taste` for stricter
   art direction, `$image-to-code` for image-first work, and
-  `$vercel-composition-patterns` for React component APIs.
+  `$vercel-composition-patterns` for React component APIs. Use
+  `$design-system-patterns`, `$responsive-design`, and `$interaction-design`
+  for design systems, adaptive layouts, and interaction behavior.
 - Operations: `$performance-engineering`, `$observability-and-debugging`,
-  `$kubernetes-specialist`, and the focused Redis/WebSocket skills.
+  `$kubernetes-specialist`, `$sql-optimization-patterns`, and the focused
+  Redis/WebSocket skills.
 - Docs: `$feature-technical-writer`.
 - ML/data: `$ml-system-design`, `$deep-learning-production`,
-  `$mlops-data-pipeline-quality`.
+  `$mlops-data-pipeline-quality`, `$spark-optimization`,
+  `$dbt-transformation-patterns`, `$airflow-dag-patterns`, and
+  `$data-quality-frameworks`.
 - Security/privacy: `$security-privacy-review`; use the matching
   `codex-security:*` workflow for repository scans and finding lifecycle work.
 - Git: `$commit-rules` before staging, committing, proposing commit messages, or
