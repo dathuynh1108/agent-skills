@@ -4,7 +4,8 @@ Shared iNexus Codex bootstrap, custom skills, full-context defaults, and sync sc
 
 ## Contents
 
-- `AGENTS.md`: global Codex operating rules, copied from `~/.codex/AGENTS.md`.
+- `AGENTS.md`: repository ownership, checks, and publication conventions.
+- `config/AGENTS.global.md`: global Codex guidance, synced to `~/.codex/AGENTS.md`.
 - `skills/architecture-pattern-review`: custom architecture review workflow.
 - `skills/code-review-and-quality`: custom code review workflow.
 - `skills/commit-rules`: custom commit/staging workflow.
@@ -34,7 +35,7 @@ Shared iNexus Codex bootstrap, custom skills, full-context defaults, and sync sc
 - `scripts/validate-skills.ps1`: validate skill structure on Windows and run Codex `quick_validate.py` when available.
 - `scripts/validate-skills.sh`: validate skill structure on macOS/Linux and run Codex `quick_validate.py` when available.
 - `hooks/hooks.json`: optional Codex hook config for final scope checks.
-- `config/codex-context-root.toml`: shared non-secret maximum context-window setting.
+- `config/codex-context-root.toml`: shared non-secret context-window setting.
 - `config/codex-legacy-lean-plugins.txt`: one-time migration list used to undo the retired lean profile without changing unrelated plugin state.
 - `scripts/sync-codex.sh` / `scripts/sync-codex.ps1`: complete source-to-runtime sync for AGENTS, hooks, custom skills, and context config.
 
@@ -109,14 +110,39 @@ Codex Security required workflows include security scans, diff scans, deep scans
 threat modeling, finding discovery, validation, attack-path analysis, finding
 triage, finding fixes, and issue/advisory tracking.
 
+## Instruction Ownership And Routing
+
+`config/AGENTS.global.md` owns shared rules; root `AGENTS.md` only describes this
+repository. Both sync implementations install the global template and leave the
+project file untouched. Reverse-sync also targets the template, avoiding duplicate
+global instructions when working in this repo.
+
+The router chooses one main workflow for the current phase and adds domain skills
+for concrete decisions. Small FastAPI edits do not need project templates; UI bug
+fixes preserve the existing design; API and architecture skills apply when those
+boundaries change. Existing user approval carries through the same scope, with
+actual tool permissions still enforced.
+
+For this setup's static HTTP ai-memory client, resolve the nearest project marker
+and pass explicit workspace/project scope. Generic auto-scoping applies only to
+clients that establish session identity. Detailed TTL, ranking, and refresh behavior
+stays in the installed ai-memory skills; do not copy a second generic managed block
+into the global template. Upstream/plugin files remain managed by their installers.
+
+Skill descriptions put task/domain discriminators first. Public capabilities remain
+installed and available; local routing chooses focused entrypoints without rewriting
+upstream skills. File-size comparisons measure text size, not model tokens, latency,
+or hallucination rates.
+
 ## Context Policy
 
 Codex keeps every installed skill and plugin available. Context efficiency comes
 from the compact global prompt and its layered retrieval policy, not from hiding
 capabilities or truncating tool results.
 
-The shared config pins `model_context_window = 272000`, the maximum advertised by
-the shared GPT-5.6-Sol Codex model catalog. It deliberately does not set
+The shared config pins `model_context_window = 272000` as this repository's
+configured default; it does not select a model or reasoning effort. Confirm the
+window is supported when changing models. It deliberately does not set
 `tool_output_token_limit`, `model_auto_compact_token_limit`, or
 `project_doc_max_bytes`.
 
@@ -154,15 +180,33 @@ Fast sync without refreshing public packages:
 SKIP_PUBLIC_SKILLS=1 ./scripts/sync-codex.sh
 ```
 
+To update global guidance, hooks, and custom skills while preserving every byte of
+the current `config.toml`, also set `SKIP_CONFIG_SYNC=1`. This skips context-default
+and legacy-plugin migrations and leaves an absent config absent:
+
+```bash
+SKIP_PUBLIC_SKILLS=1 SKIP_CONFIG_SYNC=1 ./scripts/sync-codex.sh
+```
+
+PowerShell supports the same environment switches:
+
+```powershell
+$env:SKIP_PUBLIC_SKILLS = "1"
+$env:SKIP_CONFIG_SYNC = "1"
+.\scripts\sync-codex.ps1
+Remove-Item Env:SKIP_PUBLIC_SKILLS, Env:SKIP_CONFIG_SYNC
+```
+
 ## Subagent Model Routing
 
-`AGENTS.md` routes delegation through `$subagent-coordination`. The coordinator
-keeps planning and critical decisions, batches small jobs for lighter agents,
-and explicitly selects each child's model, reasoning effort, and isolated context.
+`config/AGENTS.global.md` routes delegation through `$subagent-coordination`.
+The coordinator keeps planning and critical decisions, batches small jobs for lighter agents,
+and selects each child's model, reasoning effort, and fresh context using the live
+tool schema. When explicit route selection is unavailable, work stays local.
 Critical reviews use a stronger tier; routine reviews do not automatically do so.
 Quota failures trigger a supported alternate or local completion, not an automatic
-flagship upgrade. Model names and effort values come from the live spawn allowlist;
-Luna is a preference when available, not a hard-coded dependency.
+flagship upgrade. Model names and effort values come from the live spawn allowlist.
+The user's economy model is preferred when available; no model name is hard-coded.
 
 The existing Bash and PowerShell installers discover the custom skill automatically.
 Run the normal sync command above to install it and refresh global `AGENTS.md`.
@@ -171,30 +215,19 @@ It reuses the installed Superpowers plugin instead of adding a duplicate public 
 
 ## Sync From Local Codex
 
-Run from this repo when local custom skills change:
+Review local changes before copying them back. Run from this repo only when the
+local managed copies are the intended source; the loop includes all repo-owned
+skills, including `subagent-coordination`:
 
 ```bash
-cp ~/.codex/AGENTS.md ./AGENTS.md
-rsync -a --delete ~/.codex/skills/architecture-pattern-review/ ./skills/architecture-pattern-review/
-rsync -a --delete ~/.codex/skills/code-review-and-quality/ ./skills/code-review-and-quality/
-rsync -a --delete ~/.codex/skills/commit-rules/ ./skills/commit-rules/
-rsync -a --delete ~/.codex/skills/python-clean-code/ ./skills/python-clean-code/
-rsync -a --delete ~/.codex/skills/go-clean-code/ ./skills/go-clean-code/
-rsync -a --delete ~/.codex/skills/feature-technical-writer/ ./skills/feature-technical-writer/
-rsync -a --delete ~/.codex/skills/system-design-review/ ./skills/system-design-review/
-rsync -a --delete ~/.codex/skills/backend-service-design/ ./skills/backend-service-design/
-rsync -a --delete ~/.codex/skills/api-contract-design/ ./skills/api-contract-design/
-rsync -a --delete ~/.codex/skills/data-modeling-and-storage/ ./skills/data-modeling-and-storage/
-rsync -a --delete ~/.codex/skills/distributed-systems-reliability/ ./skills/distributed-systems-reliability/
-rsync -a --delete ~/.codex/skills/performance-engineering/ ./skills/performance-engineering/
-rsync -a --delete ~/.codex/skills/observability-and-debugging/ ./skills/observability-and-debugging/
-rsync -a --delete ~/.codex/skills/testing-strategy/ ./skills/testing-strategy/
-rsync -a --delete ~/.codex/skills/refactoring-and-clean-code/ ./skills/refactoring-and-clean-code/
-rsync -a --delete ~/.codex/skills/ml-system-design/ ./skills/ml-system-design/
-rsync -a --delete ~/.codex/skills/deep-learning-production/ ./skills/deep-learning-production/
-rsync -a --delete ~/.codex/skills/mlops-data-pipeline-quality/ ./skills/mlops-data-pipeline-quality/
-rsync -a --delete ~/.codex/skills/security-privacy-review/ ./skills/security-privacy-review/
-cp ~/.codex/hooks.json ./hooks/hooks.json
+CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
+cp "$CODEX_HOME_DIR/AGENTS.md" ./config/AGENTS.global.md
+for source in ./skills/*; do
+  [ -d "$source" ] || continue
+  name="${source##*/}"
+  rsync -a --delete "$CODEX_HOME_DIR/skills/$name/" "$source/"
+done
+cp "$CODEX_HOME_DIR/hooks.json" ./hooks/hooks.json
 ```
 
 Public `npx` skills should stay out of `skills/`. Update the public source list

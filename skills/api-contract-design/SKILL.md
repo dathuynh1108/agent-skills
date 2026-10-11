@@ -1,6 +1,6 @@
 ---
 name: api-contract-design
-description: Use when designing or changing REST, gRPC, GraphQL, webhook, event, DTO, SDK, OpenAPI, protobuf, or public interface contracts. Focus on compatibility, validation, error semantics, pagination, versioning, and generated artifacts.
+description: API contract design and changes to REST, gRPC, GraphQL, events, webhooks, DTOs, SDKs, OpenAPI, or protobuf consumed across a boundary.
 ---
 
 # API Contract Design

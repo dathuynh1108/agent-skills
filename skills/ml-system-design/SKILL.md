@@ -1,6 +1,6 @@
 ---
 name: ml-system-design
-description: Use when designing, reviewing, or changing machine learning systems, recommendation/ranking/search models, prediction services, feature pipelines, training pipelines, model serving, evaluation, monitoring, drift handling, or ML rollout strategy.
+description: ML system architecture and design reviews covering data/features, training, evaluation, serving, monitoring, and rollout decisions.
 ---
 
 # ML System Design

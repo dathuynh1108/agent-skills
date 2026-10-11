@@ -1,6 +1,6 @@
 ---
 name: refactoring-and-clean-code
-description: Use for language-agnostic clean code, safe refactoring, simplification, renaming, extraction, reducing duplication, reducing complexity, improving readability, or cleaning code while preserving behavior. Do not use for feature changes unless requested.
+description: Requested behavior-preserving cleanup, simplification, extraction, renaming, or reduction of code duplication and coupling.
 ---
 
 # Refactoring And Clean Code

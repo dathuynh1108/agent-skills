@@ -7,8 +7,13 @@ $configFile = Join-Path $codexHome "config.toml"
 New-Item -ItemType Directory -Path $codexHome -Force | Out-Null
 & (Join-Path $PSScriptRoot "install-skills.ps1")
 
-Copy-Item (Join-Path $root "AGENTS.md") (Join-Path $codexHome "AGENTS.md") -Force
+Copy-Item (Join-Path $root "config\AGENTS.global.md") (Join-Path $codexHome "AGENTS.md") -Force
 Copy-Item (Join-Path $root "hooks\hooks.json") (Join-Path $codexHome "hooks.json") -Force
+
+if ($env:SKIP_CONFIG_SYNC -eq "1") {
+    Write-Output "Synced global guidance, hooks, and custom skills; preserved config.toml"
+    return
+}
 
 $raw = if (Test-Path $configFile) { Get-Content -Raw -LiteralPath $configFile } else { "" }
 $hadLegacyLean = $raw -match '(?m)^# BEGIN agent-skills lean skill catalog$'

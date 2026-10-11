@@ -1,6 +1,6 @@
 ---
 name: security-privacy-review
-description: Use for defensive security and privacy review of backend, API, data, ML, logging, secrets, auth/authz, tenant isolation, input validation, dependency, and deployment changes. Focus on finding and fixing risks, not offensive exploitation.
+description: Defensive review of authentication, authorization, tenant isolation, untrusted inputs, secrets, personal data, or sensitive logging.
 ---
 
 # Security Privacy Review

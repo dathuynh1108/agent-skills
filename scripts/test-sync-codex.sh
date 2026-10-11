@@ -6,6 +6,8 @@ TMP_ROOT="$(mktemp -d)"
 trap 'rm -rf "$TMP_ROOT"' EXIT
 
 mkdir -p "$TMP_ROOT/.codex"
+cp "$ROOT/AGENTS.md" "$TMP_ROOT/project-agents.before.md"
+cp "$ROOT/AGENTS.md" "$TMP_ROOT/.codex/AGENTS.md"
 cat >"$TMP_ROOT/.codex/config.toml" <<'EOF'
 # BEGIN agent-skills context defaults
 model_reasoning_effort = "high"
@@ -33,21 +35,34 @@ enabled = false
 EOF
 
 run_sync() {
+  local skip_config="${1:-0}"
   HOME="$TMP_ROOT" \
-  CODEX_HOME="$TMP_ROOT/.codex" \
-  TARGET_SKILLS_DIR="$TMP_ROOT/.codex/skills" \
-  AGENTS_SKILLS_DIR="$TMP_ROOT/.agents/skills" \
-  SKIP_PLUGIN_CHECKS=1 \
-  SKIP_PUBLIC_SKILLS=1 \
+    CODEX_HOME="$TMP_ROOT/.codex" \
+    TARGET_SKILLS_DIR="$TMP_ROOT/.codex/skills" \
+    AGENTS_SKILLS_DIR="$TMP_ROOT/.agents/skills" \
+    SKIP_PLUGIN_CHECKS=1 \
+    SKIP_PUBLIC_SKILLS=1 \
+    SKIP_CONFIG_SYNC="$skip_config" \
     "$ROOT/scripts/sync-codex.sh" >/dev/null
 }
 
+cp "$TMP_ROOT/.codex/config.toml" "$TMP_ROOT/original.toml"
+run_sync 1
+cmp "$TMP_ROOT/original.toml" "$TMP_ROOT/.codex/config.toml"
+cmp "$ROOT/config/AGENTS.global.md" "$TMP_ROOT/.codex/AGENTS.md"
+cmp "$ROOT/hooks/hooks.json" "$TMP_ROOT/.codex/hooks.json"
+diff -r "$ROOT/skills" "$TMP_ROOT/.codex/skills"
+
 run_sync
 
-cmp "$ROOT/AGENTS.md" "$TMP_ROOT/.codex/AGENTS.md"
+cmp "$ROOT/config/AGENTS.global.md" "$TMP_ROOT/.codex/AGENTS.md"
+cmp "$TMP_ROOT/project-agents.before.md" "$ROOT/AGENTS.md"
+if cmp -s "$ROOT/AGENTS.md" "$TMP_ROOT/.codex/AGENTS.md"; then
+  echo "Expected global instructions to be separate from project instructions" >&2
+  exit 1
+fi
 cmp "$ROOT/hooks/hooks.json" "$TMP_ROOT/.codex/hooks.json"
-grep -q 'ai-memory finalize-session --agent codex' "$TMP_ROOT/.codex/AGENTS.md"
-grep -q 'static HTTP MCP registration' "$TMP_ROOT/.codex/AGENTS.md"
+diff -r "$ROOT/skills" "$TMP_ROOT/.codex/skills"
 test ! -e "$TMP_ROOT/.codex/skills/context-budget"
 grep -q '^model = "test-model"$' "$TMP_ROOT/.codex/config.toml"
 test "$(grep -c '^model_context_window = 272000$' "$TMP_ROOT/.codex/config.toml")" -eq 1
@@ -79,5 +94,13 @@ awk '
 cp "$TMP_ROOT/.codex/config.toml" "$TMP_ROOT/first.toml"
 run_sync
 cmp "$TMP_ROOT/first.toml" "$TMP_ROOT/.codex/config.toml"
+cmp "$ROOT/config/AGENTS.global.md" "$TMP_ROOT/.codex/AGENTS.md"
+cmp "$ROOT/hooks/hooks.json" "$TMP_ROOT/.codex/hooks.json"
+cmp "$TMP_ROOT/project-agents.before.md" "$ROOT/AGENTS.md"
+diff -r "$ROOT/skills" "$TMP_ROOT/.codex/skills"
+
+rm "$TMP_ROOT/.codex/config.toml"
+run_sync 1
+test ! -e "$TMP_ROOT/.codex/config.toml"
 
 echo "Codex sync tests passed"

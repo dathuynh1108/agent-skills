@@ -1,6 +1,6 @@
 ---
 name: data-modeling-and-storage
-description: Use when designing or changing database schemas, migrations, indexes, ORM models, query patterns, transactions, consistency, data retention, partitioning, backfills, or storage choices for backend or ML systems.
+description: Database schema, index, migration, transaction, retention, backfill, or storage decisions that change data ownership or access patterns.
 ---
 
 # Data Modeling And Storage

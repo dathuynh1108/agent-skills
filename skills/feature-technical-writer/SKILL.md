@@ -1,6 +1,6 @@
 ---
 name: feature-technical-writer
-description: Use when Codex needs to document a software feature, API, service behavior, architecture decision, user workflow, release note, migration guide, or troubleshooting guide from source evidence, and when asked to draft, update, or publish technical documentation to Confluence. Applies to repo-grounded feature docs, developer docs, internal runbooks, and stakeholder-facing technical summaries.
+description: Source-grounded feature docs, API references, ADRs, runbooks, release or migration notes, and requested Confluence publication.
 ---
 
 # Feature Technical Writer
