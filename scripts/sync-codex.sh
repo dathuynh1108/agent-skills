@@ -6,12 +6,17 @@ CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
 CONFIG_FILE="$CODEX_HOME_DIR/config.toml"
 
 mkdir -p "$CODEX_HOME_DIR"
-touch "$CONFIG_FILE"
 
 "$ROOT/scripts/install-skills.sh"
-cp "$ROOT/AGENTS.md" "$CODEX_HOME_DIR/AGENTS.md"
+cp "$ROOT/config/AGENTS.global.md" "$CODEX_HOME_DIR/AGENTS.md"
 cp "$ROOT/hooks/hooks.json" "$CODEX_HOME_DIR/hooks.json"
 
+if [ "${SKIP_CONFIG_SYNC:-0}" = "1" ]; then
+  echo "Synced global guidance, hooks, and custom skills; preserved config.toml"
+  exit 0
+fi
+
+touch "$CONFIG_FILE"
 legacy_lean=0
 if grep -q '^# BEGIN agent-skills lean skill catalog$' "$CONFIG_FILE"; then
   legacy_lean=1

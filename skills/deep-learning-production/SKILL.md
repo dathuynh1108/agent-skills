@@ -1,6 +1,6 @@
 ---
 name: deep-learning-production
-description: Use when implementing or reviewing deep learning training, fine-tuning, evaluation, inference, GPU performance, batching, quantization, checkpointing, distributed training, model packaging, or deployment behavior.
+description: Deep learning training, evaluation, checkpoint/resume, GPU optimization, or production inference and model packaging work.
 ---
 
 # Deep Learning Production

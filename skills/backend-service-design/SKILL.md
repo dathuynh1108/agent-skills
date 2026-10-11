@@ -1,13 +1,13 @@
 ---
 name: backend-service-design
-description: Use when designing or changing backend APIs, services, repositories, workers, jobs, external clients, auth flows, configs, or service boundaries. Focus on contracts, ownership, data access, reliability, tests, and operations.
+description: Backend service or use-case design involving API, domain, repository, worker, or external-client ownership and orchestration.
 ---
 
 # Backend Service Design
 
 ## Workflow
 
-1. Read local `AGENTS.md`, README/docs, API specs, schemas, migrations, configs, CI/build files, and nearby tests.
+1. Read relevant local guidance and the owning service path. Consult specs, schemas, configuration, and nearby tests only as needed to establish the affected contract.
 2. Identify the behavior owner: API/presentation, application service/use case, domain, repository/data access, worker/job, external client, config, or deployment.
 3. Preserve public contracts unless the task explicitly changes them.
 4. Keep request parsing, auth extraction, status codes, and response/error mapping at API boundaries.

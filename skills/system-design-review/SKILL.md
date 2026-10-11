@@ -1,6 +1,6 @@
 ---
 name: system-design-review
-description: Use for system design, architecture proposals, ADRs, service decomposition, scale planning, storage/queue/cache choices, reliability trade-offs, rollout plans, and design reviews. Do not use for small local code edits.
+description: System proposals, ADRs, service decomposition, capacity planning, or infrastructure and reliability trade-offs beyond local code edits.
 ---
 
 # System Design Review

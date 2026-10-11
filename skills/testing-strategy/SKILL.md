@@ -1,6 +1,6 @@
 ---
 name: testing-strategy
-description: Use when planning, adding, reviewing, or selecting tests for backend, clean-code refactors, API contracts, database changes, distributed systems, performance-sensitive paths, data pipelines, ML models, or deep-learning training/inference.
+description: Test selection, regression design, or coverage review when changed contracts, failure modes, data, or ML behavior need a validation plan.
 ---
 
 # Testing Strategy

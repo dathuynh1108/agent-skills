@@ -1,13 +1,13 @@
 ---
 name: architecture-pattern-review
-description: Use when Codex is asked to design or review architecture, choose or apply design patterns, assess module/service boundaries, plan refactors, inspect coupling, evaluate ownership, or make changes that may cross domain, application, infrastructure, API, worker, database, external-client, or deployment boundaries. Covers pragmatic pattern selection, boundary checks, and over-engineering safeguards.
+description: Architecture reviews, ownership and coupling decisions, pattern selection, or refactors that change module and layer boundaries.
 ---
 
 # Architecture Pattern Review
 
 ## Workflow
 
-- Read the repo `AGENTS.md`, relevant docs, build files, and nearby implementations before proposing or editing architecture.
+- Read the relevant `AGENTS.md` and owning implementation; consult design docs or build files when they answer a concrete boundary or dependency question.
 - Identify the current owner of the behavior before changing it.
 - Trace upstream callers, downstream dependencies, persisted data, external contracts, and deployment/runtime surfaces when relevant.
 - Use repo-provided code intelligence, call graph, impact, or search tools when available and current.

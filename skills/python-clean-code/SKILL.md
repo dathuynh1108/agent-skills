@@ -1,14 +1,14 @@
 ---
 name: python-clean-code
-description: Use when working in Python services to make scoped code changes, clean imports/formatting, review FastAPI/Pydantic/SQLAlchemy/worker/client boundaries, preserve API contracts, and choose focused uv/pytest validation.
+description: Python service implementation or review involving FastAPI, Pydantic, SQLAlchemy, workers, clients, or cohesive object ownership.
 ---
 
 # Python Clean Code
 
 ## Workflow
 
-1. Read local guidance first: `AGENTS.md`, `README.md`, `pyproject.toml`, `requirements*.txt`, `Makefile`, CI files, and nearby tests.
-2. For GitNexus-indexed repos, use the task-specific GitNexus skills before broad manual exploration: `$gitnexus-exploring` for flow/owner lookup, `$gitnexus-impact-analysis` before non-trivial symbol/API edits and final scope claims, `$gitnexus-debugging` for failures, `$gitnexus-refactoring` for moves/renames, and `$gitnexus-cli` only for index/status/analyze operations. Still verify exact literals and dirty working-tree truth with `rg` and direct file reads.
+1. Read the relevant `AGENTS.md`; discover commands from the first authoritative README, build/package, or CI source. Inspect the owner and nearby tests, expanding only for an unresolved question.
+2. When a current GitNexus index exists, reuse the active graph workflow for owner/impact lookup. Verify exact literals and dirty source with `rg` and Git; unindexed repos use source tools directly.
 3. Classify the owner before changing behavior: route/API, application service, domain model, repository/data access, external client, worker/job, config, or deployment.
 4. Keep changes narrow. Preserve public contracts, explicit `None` semantics, raw upstream values, async job boundaries, and error behavior unless the task explicitly changes them.
 5. Prefer repo commands through `uv run` when the repo uses `uv`. Do not run DB init, migrations, destructive SQL, external writes, deploys, or rollbacks without explicit user request.
@@ -50,7 +50,7 @@ description: Use when working in Python services to make scoped code changes, cl
 
 ## Validation Menu
 
-- Format/imports: `make format-all` when present, otherwise use the repo's configured `black`, `isort`, or `ruff` commands.
+- Format/imports: apply the configured formatter to changed files. Use a repo-wide target only when its scope is appropriate; inspect incidental changes.
 - Full tests: `uv run pytest` or the repo's documented pytest command.
 - Focused tests: `uv run pytest path/to/test_file.py -q`
 - Compile changed packages when useful: `uv run python -m compileall <package-or-dir>`

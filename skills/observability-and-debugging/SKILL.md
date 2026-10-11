@@ -1,6 +1,6 @@
 ---
 name: observability-and-debugging
-description: Use when investigating bugs, production issues, flaky tests, regressions, logs, metrics, traces, dashboards, alerts, runbooks, or when adding instrumentation to make backend, performance, or ML behavior diagnosable.
+description: Incident and regression diagnosis, flaky behavior, or instrumentation changes involving logs, metrics, traces, alerts, and runbooks.
 ---
 
 # Observability And Debugging

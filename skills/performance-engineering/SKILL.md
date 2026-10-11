@@ -1,6 +1,6 @@
 ---
 name: performance-engineering
-description: Use when investigating or improving latency, throughput, CPU, memory, database queries, N+1 issues, caching, pagination, batching, concurrency, cold starts, benchmark regressions, or model inference speed. Requires measurement-first optimization.
+description: Performance investigations or optimization of latency, throughput, CPU, memory, queries, caching, concurrency, or inference.
 ---
 
 # Performance Engineering

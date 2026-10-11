@@ -1,6 +1,6 @@
 ---
 name: mlops-data-pipeline-quality
-description: Use when designing or reviewing ML/data pipelines, feature pipelines, data validation, schema drift, train/serve skew, labels, backfills, lineage, monitoring, model registry flows, or data-quality incidents.
+description: Data or feature pipeline changes and incidents involving validation, schema drift, leakage, train/serve skew, backfills, or lineage.
 ---
 
 # MLOps Data Pipeline Quality

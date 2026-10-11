@@ -1,6 +1,6 @@
 ---
 name: distributed-systems-reliability
-description: Use when work involves retries, idempotency, queues, events, workflows, consistency, timeouts, cancellation, circuit breakers, backpressure, rate limits, duplicate delivery, partial failure, or cross-service reliability.
+description: Cross-service reliability involving duplicate delivery, retries, partial writes, queues, timeouts, cancellation, or consistency.
 ---
 
 # Distributed Systems Reliability
