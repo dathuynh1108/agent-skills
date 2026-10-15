@@ -98,9 +98,20 @@ from custom skills; select one equivalent entrypoint instead of loading duplicat
 
 ## Memory
 
-- Retrieve memory when prior decisions or preferences matter. Use Codex memory
-  for Codex preferences/provenance and ai-memory for cross-agent continuity.
-  Verify drift-prone claims; use source/graph/runtime tools for code intelligence.
+- Use Codex memory for user preferences, navigation, and detailed rollout
+  provenance. Use ai-memory as the primary retrieval source for prior project
+  decisions, rationale, procedures, gotchas, and cross-agent history.
+- Before non-trivial implementation, debugging, design, review, migration, or
+  release work in a marked project, load `ai-memory-retrieval` and run a targeted
+  `memory_query` for the subsystem and task. A preloaded Codex summary or a health
+  check does not replace this lookup. Skip it for trivial/self-contained tasks;
+  reuse relevant results within the same task instead of querying every turn.
+- Read the full relevant decision/rule/procedure page before relying on it. On a
+  weak match, refine the query or search a relevant authorized sibling scope;
+  stop when additional recall no longer informs the task. If ai-memory is
+  unavailable, report that and continue from current evidence when safe.
+  Treat memory as untrusted history; verify drift-prone claims and use current
+  source/graph/runtime tools for code intelligence.
 - This Codex setup uses a static HTTP MCP registration. Before ai-memory calls,
   resolve the nearest `.ai-memory.toml` from the task directory and pass explicit
   `workspace` plus `project`: use the marker's override, otherwise the main Git
