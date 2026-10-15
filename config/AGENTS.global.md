@@ -98,9 +98,10 @@ from custom skills; select one equivalent entrypoint instead of loading duplicat
 
 ## Memory
 
-- Use Codex memory for user preferences, navigation, and detailed rollout
-  provenance. Use ai-memory as the primary retrieval source for prior project
-  decisions, rationale, procedures, gotchas, and cross-agent history.
+- Use the conversation and Codex memory already available for preferences,
+  project pointers, and rollout context. Query ai-memory alongside them when
+  additional project decisions, rationale, procedures, gotchas, or cross-agent
+  history would resolve a relevant context gap; do not fetch it when context is sufficient.
 - In a marked project, query ai-memory when the user references prior work,
   when resuming unfamiliar work whose earlier decisions/gotchas could change the
   approach, or when changing contracts, authorization, schema/data, or release

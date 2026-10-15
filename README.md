@@ -123,7 +123,8 @@ fixes preserve the existing design; API and architecture skills apply when those
 boundaries change. Existing user approval carries through the same scope, with
 actual tool permissions still enforced.
 
-Recall is selective: query `memory_query` for explicit history questions,
+ai-memory supplements the conversation and Codex memory when more relevant
+project context is needed. Recall is selective: query `memory_query` for history questions,
 unfamiliar resumed work, or consequential boundary changes whose prior project
 rules are missing from context. Task size alone does not trigger recall. Skip
 self-contained/mechanical work and continuations with sufficient relevant context.
