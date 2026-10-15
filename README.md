@@ -123,6 +123,13 @@ fixes preserve the existing design; API and architecture skills apply when those
 boundaries change. Existing user approval carries through the same scope, with
 actual tool permissions still enforced.
 
+For substantial work in a marked project, retrieve prior decisions and gotchas
+with `memory_query` before designing or changing behavior. Codex's preloaded
+summary and `memory_status` do not count as that retrieval. Read relevant full
+pages, validate them against current source, and reuse the result during the task;
+trivial tasks can proceed directly. Query failures are reported and do not block
+safe work from current evidence.
+
 For this setup's static HTTP ai-memory client, resolve the nearest project marker
 and pass explicit workspace/project scope. Generic auto-scoping applies only to
 clients that establish session identity. Detailed TTL, ranking, and refresh behavior
