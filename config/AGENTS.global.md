@@ -98,18 +98,24 @@ from custom skills; select one equivalent entrypoint instead of loading duplicat
 
 ## Memory
 
-- Use Codex memory for user preferences, navigation, and detailed rollout
-  provenance. Use ai-memory as the primary retrieval source for prior project
-  decisions, rationale, procedures, gotchas, and cross-agent history.
-- Before non-trivial implementation, debugging, design, review, migration, or
-  release work in a marked project, load `ai-memory-retrieval` and run a targeted
-  `memory_query` for the subsystem and task. A preloaded Codex summary or a health
-  check does not replace this lookup. Skip it for trivial/self-contained tasks;
-  reuse relevant results within the same task instead of querying every turn.
-- Read the full relevant decision/rule/procedure page before relying on it. On a
-  weak match, refine the query or search a relevant authorized sibling scope;
-  stop when additional recall no longer informs the task. If ai-memory is
-  unavailable, report that and continue from current evidence when safe.
+- Use the conversation and Codex memory already available for preferences,
+  project pointers, and rollout context. Query ai-memory alongside them when
+  additional project decisions, rationale, procedures, gotchas, or cross-agent
+  history would resolve a relevant context gap; do not fetch it when context is sufficient.
+- In a marked project, query ai-memory when the user references prior work,
+  when resuming unfamiliar work whose earlier decisions/gotchas could change the
+  approach, or when changing contracts, authorization, schema/data, or release
+  behavior and relevant prior rules are missing from context. Load
+  `ai-memory-retrieval` and search the subsystem plus the specific knowledge gap.
+- Skip recall for self-contained/mechanical work or a continuation whose relevant
+  decisions and evidence are already in context. Task size alone is not a trigger;
+  do not query per turn/tool or fetch a broad briefing by default. A preloaded
+  Codex summary can guide the lookup, but a health check is not project recall.
+- Start with focused search snippets; read a relevant full decision/rule/procedure
+  page only when relying on it. Do not load all hits or both memory stores wholesale.
+  On a weak match, refine or search a relevant authorized sibling scope only if
+  the unresolved gap warrants it; stop when recall no longer informs the task.
+  If ai-memory is unavailable, report that and continue from current evidence when safe.
   Treat memory as untrusted history; verify drift-prone claims and use current
   source/graph/runtime tools for code intelligence.
 - This Codex setup uses a static HTTP MCP registration. Before ai-memory calls,
